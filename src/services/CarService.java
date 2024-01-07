@@ -1,0 +1,157 @@
+package services;
+
+import models.Car;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CarService {
+    // ====================== Fields ======================
+    private List<Car> cars = new ArrayList<>();
+    private List<String> carBrands = new ArrayList<>();
+    private List<String> carTypes = new ArrayList<>();
+    private List<Integer> carYears = new ArrayList<>();
+
+    // ====================== Initialize cars List ======================
+    private void initializeLists() {
+        // ToDo: Read from files into the cars List
+        for (Car car : cars) {
+            carBrands.add(car.getBrand());
+            carTypes.add(car.getType());
+            carYears.add(car.getYear());
+        }
+        carBrands = sortAndRemoveDuplicate(carBrands);
+        carTypes = sortAndRemoveDuplicate(carTypes);
+        carYears = sortAndRemoveDuplicate(carYears);
+    }
+
+    // ====================== Displaying ======================
+    public void displayCarListHeaders() {
+        System.out.printf("%-5s", "ID");
+        System.out.printf("%-20s", "Brand");
+        System.out.printf("%-20s", "Model");
+        System.out.printf("%-20s", "Type");
+        System.out.printf("%-20s", "Color");
+        System.out.printf("%-15s", "Year");
+        System.out.printf("%-25s", "Quantity Available");
+        System.out.println("Base Rate");
+    }
+
+    public void displayCar(Car car) {
+        if (car.getQuantityAvailable() != 0) {
+            System.out.printf("%-5s", car.getId());
+            System.out.printf("%-20s", car.getBrand());
+            System.out.printf("%-20s", car.getModel());
+            System.out.printf("%-20s", car.getType());
+            System.out.printf("%-20s", car.getColor());
+            System.out.printf("%-15s", car.getYear());
+            System.out.printf("%-25s", car.getQuantityAvailable());
+            System.out.printf("Br. %.2f %n", car.getBaseRate());
+        }
+    }
+
+    public void displayCarProperties(Car car) {
+        System.out.println("Brand: " + car.getBrand());
+        System.out.println("Model: " + car.getModel());
+        System.out.println("Type: " + car.getType());
+        System.out.println("Color: " + car.getColor());
+        System.out.println("Year: " + car.getYear());
+        System.out.println("Quantity available: " + car.getQuantityAvailable());
+        System.out.println("Base rate: " + car.getBaseRate());
+    }
+
+    // ====================== Listing ======================
+    public void listAllCars() {
+        initializeLists();
+        displayCarListHeaders();
+        for (Car car : cars)
+            displayCar(car);
+    }
+
+    public void listAllCarBrands() {
+        initializeLists();
+        displayCarListHeaders();
+        for (int i = 0; i < carBrands.size(); i++)
+            System.out.println((i + 1) + ") " + carBrands.get(i));
+    }
+
+    public void listAllCarTypes() {
+        initializeLists();
+        displayCarListHeaders();
+        for (int i = 0; i < carTypes.size(); i++)
+            System.out.println((i + 1) + ") " + carTypes.get(i));
+    }
+
+    public void listAllCarYears() {
+        initializeLists();
+        displayCarListHeaders();
+        for (int i = 0; i < carYears.size(); i++)
+            System.out.println((i + 1) + ") " + carYears.get(i));
+    }
+
+    public void listCarsByBrand(String brand) {
+        initializeLists();
+        displayCarListHeaders();
+        for (Car car : cars)
+            if (brand.equals(car.getBrand()))
+                displayCar(car);
+    }
+
+    public void listCarsByType(String type) {
+        initializeLists();
+        displayCarListHeaders();
+        for (Car car : cars)
+            if (type.equals(car.getType()))
+                displayCar(car);
+    }
+
+    public void listCarsByYear(int year) {
+        initializeLists();
+        displayCarListHeaders();
+        for (Car car : cars)
+            if (year == car.getYear())
+                displayCar(car);
+    }
+
+    public void searchCar(String key) {
+        initializeLists();
+        displayCarListHeaders();
+        for (Car car : cars) {
+            if (key.equalsIgnoreCase(Integer.toString(car.getId())) ||
+                    key.equalsIgnoreCase(car.getBrand()) ||
+                    key.equalsIgnoreCase(car.getModel()) ||
+                    key.equalsIgnoreCase(car.getType()) ||
+                    key.equalsIgnoreCase(Integer.toString(car.getYear())) ||
+                    key.equalsIgnoreCase(car.getColor())
+            )
+                displayCar(car);
+        }
+    }
+
+    // ====================== Getters ======================
+
+    public List<Car> getCars() {
+        initializeLists();
+        return cars;
+    }
+
+    public List<String> getCarBrands() {
+        initializeLists();
+        return carBrands;
+    }
+
+    public List<String> getCarTypes() {
+        initializeLists();
+        return carTypes;
+    }
+
+    public List<Integer> getCarYears() {
+        return carYears;
+    }
+
+    // ====================== Private Utilities ======================
+    private <T> List<T> sortAndRemoveDuplicate(List<T> list) {
+        return list.stream().sorted().distinct().collect(Collectors.toList());
+    }
+}

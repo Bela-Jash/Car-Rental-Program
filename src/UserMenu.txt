@@ -1,0 +1,44 @@
+UserMenu
+
+0. welcomeMenu():
+Welcome to 'SuperAdmin.companyName'.
+What would you like to do?
+1) Log In
+2) Sign Up
+3) FAQ
+4) Exit
+
+
+1. loginMenu():
+Enter your email or phone number:
+Enter your password:
+Login successful!
+Press any key to continue...
+
+2. signupMenu():
+Enter your full name:
+Enter your phone number (09/07xxxxxxxx):
+Enter your email:
+Enter your password:
+Confirm your password:
+Registration successful!
+Press any key to continue...
+
+3. faq():
+
+1.1. userMainMenu():
+Good morning/afternoon/evening, 'User.getName()'.
+What would you like to do?
+1) Book a car
+2) See the list of cars (all, filter (by brand, type, year))
+3) Search for a car (brand, model, type, year)
+4) Edit your user account
+5) FAQ
+6) Log out
+
+2.1. goto: loginMenu()
+
+1.1.1. bookCarMenu()
+1) List all cars
+2) List cars with filter
+3) Go back

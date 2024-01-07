@@ -1,0 +1,104 @@
+Capabilities
+- Book cars either immediately or in the near future
+
+Assumptions
+= Unlimited mileage
+
+Classes
+- Car (id, brand, model, type, year, baseRate, quantityAvailable, color)
+	- getters and setters
+- Account (abstract) (name, phoneNumber, email, password)
+	- changeName()
+	- changePhoneNumber()
+	- changeEmail()
+	- changePassword()
+
+	- searchCar()
+	- listAllCars()
+- User extends Account (numberOfRentedCars)
+	- createAccount()
+	- deleteAccount() : if (numberOfRentedCars == 0)
+	- logIn()
+	- bookCar()
+	- listRentedCars() : along with prepayment
+	= calculatePostPayment()
+
+- Admin extends Account
+	- modifyCar()
+	- addCar()
+	- addCarBrand()
+	- addCarType()
+	- removeCar()
+	- removeCarBrand()
+	- removeCarType()
+	- listAllUsers()
+	- listAllCarBrands()
+	- listAllCarTypes()
+	- listAllRentedCars()
+	
+- SuperAdmin extends Admin (companyName)
+	- setCompanyName()
+	- createAdminAccount()
+	- removeAdminAccount()
+	- removeUserAccount()
+	- listAllAdmins()
+
+Enums
+- CarType (SEDAN, SUV, CROSSOVER, PICKUP TRUCK, HATCHBACK, COUPE, SPORTS CAR, WAGON, MINIVAN)
+- CarBrand (ALFA ROMEO, BMW, BUICK, BYD, CADILLAC, CHEVROLET, CHRYSLER, CITROEN, DODGE, FERRARI, FIAT, FORD, GMC, HONDA, HYUNDAI, MASERATI, MAZDA, MERCEDES-BENZ, NISSAN, OPEL, PEUGEOT, PORSCHE, SUBARU, TESLA, TOYOTA, VOLKSWAGEN)
+
+User program
+- Book cars from one date up to another (Starting day has to be from the current day onwards, and ending day must be at least one day later than the starting one.)
+- Search for cars
+- Filter cars by type (such as SUV, sedan, etc.)
+- Filter cars by price, by providing min and max
+- List all cars with details
+- Change name, phone number, email, and/or password
+
+Admin program
+- Add, edit, and remove cars
+- Search for cars
+- List all cars with details
+- See list of users (their name, phone number, and email)
+
+FAQ Page
+- How is the price calculated?
+- How many types of cars are there?
+
+
+-----
+Read from files at the start of the program.
+Write to files with:
+	- Save changes
+	- Save changes and exit
+	- Exit without saving changes (Are you sure? Y/N)
+
+-----
+Files
+	- Admin and SuperAdmin accounts
+	- User accounts
+	- Cars
+	- Enums (CarType and CarBrand)
+
+
+
+
+
+
+
+-----
+User
+
+
+
+
+
+
+
+
+
+-----
+Distance ranges and respective additional price
+Logging
+
+Prepayment and postpayment

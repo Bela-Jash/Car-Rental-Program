@@ -1,0 +1,9 @@
+### IntelliJ IDEA ###
+out/
+.idea/
+.Car Rental Program/
+.hs_err_pid8176.log/
+.hs_err_pid10624.log/
+
+### VS Code ###
+.vscode/
