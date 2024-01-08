@@ -77,6 +77,11 @@ public class UserService {
         return user;
     }
 
+    public List<User> getUsers() {
+        initializeUsersList();
+        return users;
+    }
+
     // ====================== Reading ======================
 
     private void initializeUsersList() {
