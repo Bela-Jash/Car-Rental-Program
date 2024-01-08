@@ -2,7 +2,7 @@ package services;
 
 import models.Owner;
 
-public class OwnerService {
+public class OwnerService extends AdminService {
     private Owner owner;
     public boolean logIn(String emailOrPhoneNumber, String password) {
         fetchOwnerCredentials();
