@@ -30,7 +30,7 @@ public class CarService {
     }
 
     // ====================== Displaying ======================
-    public void displayCarListHeaders() {
+    private void displayCarListHeaders() {
         System.out.printf("%-5s", "ID");
         System.out.printf("%-20s", "Brand");
         System.out.printf("%-20s", "Model");
@@ -41,7 +41,7 @@ public class CarService {
         System.out.println("Base Rate");
     }
 
-    public void displayCar(Car car) {
+    private void displayCar(Car car) {
         if (car.getQuantityAvailable() != 0) {
             System.out.printf("%-5s", car.getId());
             System.out.printf("%-20s", car.getBrand());
@@ -69,27 +69,22 @@ public class CarService {
         initializeLists();
         List<Car> sortedCars = new ArrayList<>();
         switch (sortBy) {
-            case "id":
-                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
-                break;
-            case "brand":
-                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
-                break;
-            case "type":
-                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getType).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
-                break;
-            case "year":
-                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getYear).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
-                break;
-            case "quantityAvailable":
-                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getQuantityAvailable).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
-                break;
-            case "baseRate":
-                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBaseRate).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
-                break;
-            default:
-                System.out.println("Invalid sorting choice. Please contact the company's workers.");
+            case "id" ->
+                    sortedCars = cars.stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
+            case "brand" ->
+                    sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+            case "type" ->
+                    sortedCars = cars.stream().sorted(Comparator.comparing(Car::getType).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+            case "year" ->
+                    sortedCars = cars.stream().sorted(Comparator.comparing(Car::getYear).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+            case "quantityAvailable" ->
+                    sortedCars = cars.stream().sorted(Comparator.comparing(Car::getQuantityAvailable).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+            case "baseRate" ->
+                    sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBaseRate).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+            default -> {
+                System.out.println("Invalid sorting choice. Please contact the company about it.");
                 exit(1);
+            }
         }
         displayCarListHeaders();
         for (Car car : sortedCars)
@@ -175,7 +170,7 @@ public class CarService {
     public void searchCar(String key) {
         initializeLists();
         displayCarListHeaders();
-        for (Car car : cars) {
+        for (Car car : cars)
             if (key.equalsIgnoreCase(Integer.toString(car.getId())) ||
                     key.equalsIgnoreCase(car.getBrand()) ||
                     key.equalsIgnoreCase(car.getModel()) ||
@@ -184,7 +179,6 @@ public class CarService {
                     key.equalsIgnoreCase(car.getColor())
             )
                 displayCar(car);
-        }
     }
 
     // ====================== Getters ======================
