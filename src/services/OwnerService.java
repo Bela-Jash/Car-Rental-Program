@@ -14,4 +14,9 @@ public class OwnerService {
     private void fetchOwnerCredentials() {
         // ToDo: Fetch owner credentials from file, and assign it to the field owner
     }
+
+    public Owner getOwner() {
+        fetchOwnerCredentials();
+        return owner;
+    }
 }
