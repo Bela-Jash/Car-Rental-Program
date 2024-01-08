@@ -7,7 +7,6 @@ import utility.Console;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 public class UserService {
 
     // ====================== Fields ======================
@@ -16,26 +15,19 @@ public class UserService {
     private List<User> users = new ArrayList<>();
 
     // ====================== Log In ======================
-    public void logIn(String emailOrPhoneNumber, String password) {
-        // ToDo: Delete the following two lines
+    public boolean logIn(String emailOrPhoneNumber, String password) {
+        // ToDo: Delete the following two lines after implementing file read/write
         User user1 = new User("Abel", "0999999999", "a@b.c", "11111111");
         users.add(user1);
         initializeUsersList();
-        while (true) {
-            boolean accessGranted = false;
-            for (User user : users)
-                if (emailOrPhoneNumber.equals(user.getEmail()) ||
-                        emailOrPhoneNumber.equals(user.getPhoneNumber()))
-                    if (password.equals(user.getPassword())) {
-                        saveLoggedInUser(user);
-                        accessGranted = true;
-                        break;
-                    }
-            if (accessGranted) break;
-            System.out.println("Your email or phone number, and/or password is incorrect. Please try again.");
-        }
-        System.out.println("Login successful!");
-        Console.continueOnEnter();
+        for (User user : users)
+            if (emailOrPhoneNumber.equals(user.getEmail()) ||
+                    emailOrPhoneNumber.equals(user.getPhoneNumber()))
+                if (password.equals(user.getPassword())) {
+                    saveLoggedInUser(user);
+                    return true;
+                }
+        return false;
     }
 
     // ====================== Sign Up ======================

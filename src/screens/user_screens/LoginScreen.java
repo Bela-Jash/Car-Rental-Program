@@ -17,10 +17,16 @@ public class LoginScreen {
         System.out.println();
         System.out.println("Welcome Screen > Log In");
         System.out.println("Enter your credentials to log in.");
-        String emailOrPhoneNumber = Console.readText("Enter your email or phone number", Patterns.noPattern, "Too many characters. Please try again.");
-        String password = Console.readText("Enter your password", Patterns.noPattern, "Too many characters. Please try again.");;
-
-        userService.logIn(emailOrPhoneNumber, password);
+        boolean userIsAuthenticated;
+        while (true) {
+            String emailOrPhoneNumber = Console.readText("Enter your email or phone number", Patterns.noPattern, "Too many characters. Please try again.");
+            String password = Console.readText("Enter your password", Patterns.noPattern, "Too many characters. Please try again.");
+            userIsAuthenticated = userService.logIn(emailOrPhoneNumber, password);
+            if (userIsAuthenticated) break;
+            System.out.println("Your email or phone number, and/or password is incorrect. Please try again.");
+        }
+        System.out.println("Login successful!");
+        Console.continueOnEnter();
 
         userScreenManager.switchScreen("UserScreen");
     }
