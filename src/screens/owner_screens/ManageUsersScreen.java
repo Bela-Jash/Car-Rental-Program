@@ -15,7 +15,8 @@ public class ManageUsersScreen {
         System.out.println("Welcome Screen > Owner Main Menu > Manage Users");
         System.out.println("What would you like to do?");
         System.out.println("1) List all users");
-        System.out.println("2) Delete a user account");
+        System.out.println("2) Search for a user");
+        System.out.println("2) Delete a user");
         System.out.println("3) Go back");
 
         int manageUsersChoice = (int) Console.readNumber("Choice", 1, 3);
