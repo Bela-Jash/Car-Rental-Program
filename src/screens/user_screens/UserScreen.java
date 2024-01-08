@@ -28,7 +28,7 @@ public class UserScreen {
         System.out.println(userService.getLoggedInUser().getName() + ".");
         System.out.println("What would you like to do?");
         System.out.println("1) Book a car");
-        System.out.println("2) See the list of all cars");
+        System.out.println("2) List all cars");
         System.out.println("3) List cars with filter");
         System.out.println("4) Search for a car");
         System.out.println("5) List all cars you've rented");

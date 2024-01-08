@@ -3,8 +3,11 @@ package services;
 import models.Car;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.lang.System.exit;
 
 public class CarService {
     // ====================== Fields ======================
@@ -62,10 +65,65 @@ public class CarService {
     }
 
     // ====================== Listing ======================
-    public void listAllCars() {
+    public void listAllCarsAscending(String sortBy) {
         initializeLists();
+        List<Car> sortedCars = new ArrayList<>();
+        switch (sortBy) {
+            case "id":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
+                break;
+            case "brand":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+                break;
+            case "type":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getType).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+                break;
+            case "year":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getYear).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+                break;
+            case "quantityAvailable":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getQuantityAvailable).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+                break;
+            case "baseRate":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBaseRate).thenComparing(Car::getBrand).thenComparing(Car::getModel)).collect(Collectors.toList());
+                break;
+            default:
+                System.out.println("Invalid sorting choice. Please contact the company's workers.");
+                exit(1);
+        }
         displayCarListHeaders();
-        for (Car car : cars)
+        for (Car car : sortedCars)
+            displayCar(car);
+    }
+
+    public void listAllCarsDescending(String sortBy) {
+        initializeLists();
+        List<Car> sortedCars = new ArrayList<>();
+        switch (sortBy) {
+            case "id":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getId).reversed()).collect(Collectors.toList());
+                break;
+            case "brand":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBrand).thenComparing(Car::getModel).reversed()).collect(Collectors.toList());
+                break;
+            case "type":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getType).thenComparing(Car::getBrand).thenComparing(Car::getModel).reversed()).collect(Collectors.toList());
+                break;
+            case "year":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getYear).thenComparing(Car::getBrand).thenComparing(Car::getModel).reversed()).collect(Collectors.toList());
+                break;
+            case "quantityAvailable":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getQuantityAvailable).thenComparing(Car::getBrand).thenComparing(Car::getModel).reversed()).collect(Collectors.toList());
+                break;
+            case "baseRate":
+                sortedCars = cars.stream().sorted(Comparator.comparing(Car::getBaseRate).thenComparing(Car::getBrand).thenComparing(Car::getModel).reversed()).collect(Collectors.toList());
+                break;
+            default:
+                System.out.println("Invalid sorting choice. Please contact the company about it.");
+                exit(1);
+        }
+        displayCarListHeaders();
+        for (Car car : sortedCars)
             displayCar(car);
     }
 

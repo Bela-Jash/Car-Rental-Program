@@ -30,7 +30,8 @@ public class OwnerScreen {
         System.out.println("2) Manage admin accounts");
         System.out.println("3) Manage user accounts");
         System.out.println("4) Manage cars");
-        System.out.println("5) Exit");
+        System.out.println("5) Modify your account");
+        System.out.println("6) Exit");
 
         int ownerMainMenuChoice = (int) Console.readNumber("Choice", 1, 5);
 
@@ -39,7 +40,8 @@ public class OwnerScreen {
             case 2: ownerScreenManager.switchScreen("ManageAdminsScreen"); break;
             case 3: ownerScreenManager.switchScreen("ManageUsersScreen"); break;
             case 4: ownerScreenManager.switchScreen("ManageCarsScreen"); break;
-            case 5: break;
+            case 5: ownerScreenManager.switchScreen("AccountScreen"); break;
+            case 6: break;
         }
 
     }
