@@ -21,7 +21,7 @@ public class ManageAdminsScreen {
         System.out.println("5) Delete an admin account");
         System.out.println("6) Go back");
 
-        int manageAdminsChoice = (int) Console.readNumber("Choice", 1, 5);
+        int manageAdminsChoice = (int) Console.readNumber("Choice", 1, 6);
 
         switch (manageAdminsChoice) {
             case 1: ownerScreenManager.switchScreen("AllAdminsScreen"); break;
