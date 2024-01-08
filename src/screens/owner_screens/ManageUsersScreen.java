@@ -23,8 +23,9 @@ public class ManageUsersScreen {
 
         switch (manageUsersChoice) {
             case 1: ownerScreenManager.switchScreen("AllUsersScreen"); break;
-            case 2: ownerScreenManager.switchScreen("DeleteUserScreen"); break;
-            case 3: ownerScreenManager.switchScreen("OwnerScreen"); break;
+            case 2: ownerScreenManager.switchScreen("SearchUserScreen"); break;
+            case 3: ownerScreenManager.switchScreen("DeleteUserScreen"); break;
+            case 4: ownerScreenManager.switchScreen("OwnerScreen"); break;
         }
     }
 }

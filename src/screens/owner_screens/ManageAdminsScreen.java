@@ -25,10 +25,11 @@ public class ManageAdminsScreen {
 
         switch (manageAdminsChoice) {
             case 1: ownerScreenManager.switchScreen("AllAdminsScreen"); break;
-            case 2: ownerScreenManager.switchScreen("CreateAdminScreen"); break;
-            case 3: ownerScreenManager.switchScreen("ModifyAdminScreen"); break;
-            case 4: ownerScreenManager.switchScreen("DeleteAdminScreen"); break;
-            case 5: ownerScreenManager.switchScreen("OwnerScreen"); break;
+            case 2: ownerScreenManager.switchScreen("SearchAdminScreen"); break;
+            case 3: ownerScreenManager.switchScreen("CreateAdminScreen"); break;
+            case 4: ownerScreenManager.switchScreen("ModifyAdminScreen"); break;
+            case 5: ownerScreenManager.switchScreen("DeleteAdminScreen"); break;
+            case 6: ownerScreenManager.switchScreen("OwnerScreen"); break;
         }
     }
 }
