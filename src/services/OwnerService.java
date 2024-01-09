@@ -1,13 +1,11 @@
 package services;
 
-import models.Account;
-import models.Admin;
-import models.Owner;
-import models.User;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.lang.System.exit;
@@ -70,10 +68,12 @@ public class OwnerService extends AdminService {
     public void searchAdmin(String key) {
         initializeAdminsList();
         displayAccountListHeaders();
+        Pattern pattern = Pattern.compile(key.toLowerCase());
         for (Admin admin : admins)
-            if (key.equalsIgnoreCase(Integer.toString(admin.getId())) ||
-                    key.equalsIgnoreCase(admin.getPhoneNumber()) ||
-                    key.equalsIgnoreCase(admin.getEmail())
+            if (pattern.matcher(Integer.toString(admin.getId())).find() ||
+                    pattern.matcher(admin.getName().toLowerCase()).find() ||
+                    pattern.matcher(admin.getPhoneNumber().toLowerCase()).find() ||
+                    pattern.matcher(admin.getEmail().toLowerCase()).find()
             )
                 displayAccount(admin);
     }
@@ -119,10 +119,12 @@ public class OwnerService extends AdminService {
     public void searchUser(String key) {
         List<User> users = userService.getUsers();
         displayAccountListHeaders();
+        Pattern pattern = Pattern.compile(key.toLowerCase());
         for (User user : users)
-            if (key.equalsIgnoreCase(Integer.toString(user.getId())) ||
-                    key.equalsIgnoreCase(user.getPhoneNumber()) ||
-                    key.equalsIgnoreCase(user.getEmail())
+            if (pattern.matcher(Integer.toString(user.getId())).find() ||
+                    pattern.matcher(user.getName().toLowerCase()).find() ||
+                    pattern.matcher(user.getPhoneNumber().toLowerCase()).find() ||
+                    pattern.matcher(user.getEmail().toLowerCase()).find()
             )
                 displayAccount(user);
     }
