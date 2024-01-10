@@ -20,8 +20,6 @@ public class AllAdminsScreen {
         System.out.println("2) By ID number (descending)");
         System.out.println("3) By name (ascending)");
         System.out.println("4) By name (descending)");
-        System.out.println("5) Go back");
-        System.out.println("6) Main menu");
 
         int listSortedAdminsChoice = (int) Console.readNumber("Choice", 1, 6);
 
@@ -30,8 +28,9 @@ public class AllAdminsScreen {
             case 2: ownerService.listAllAdminsDescending("id"); break;
             case 3: ownerService.listAllAdminsAscending("name"); break;
             case 4: ownerService.listAllAdminsDescending("name"); break;
-            case 5: ownerScreenManager.switchScreen("ManageAdminsScreen"); break;
-            case 6: ownerScreenManager.switchScreen("OwnerScreen"); break;
         }
+
+        Console.continueOnEnter();
+        ownerScreenManager.switchScreen("ManageAdminsScreen");
     }
 }
