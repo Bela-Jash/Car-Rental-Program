@@ -5,6 +5,8 @@ import models.Car;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.lang.System.exit;
@@ -170,13 +172,14 @@ public class CarService {
     public void searchCar(String key) {
         initializeLists();
         displayCarListHeaders();
+        Pattern pattern = Pattern.compile(key.toLowerCase());
         for (Car car : cars)
-            if (key.equalsIgnoreCase(Integer.toString(car.getId())) ||
-                    key.equalsIgnoreCase(car.getBrand()) ||
-                    key.equalsIgnoreCase(car.getModel()) ||
-                    key.equalsIgnoreCase(car.getType()) ||
-                    key.equalsIgnoreCase(Integer.toString(car.getYear())) ||
-                    key.equalsIgnoreCase(car.getColor())
+            if (pattern.matcher(Integer.toString(car.getId())).find() ||
+                    pattern.matcher(car.getBrand().toLowerCase()).find() ||
+                    pattern.matcher(car.getModel().toLowerCase()).find() ||
+                    pattern.matcher(car.getType().toLowerCase()).find() ||
+                    pattern.matcher(Integer.toString(car.getYear())).find() ||
+                    pattern.matcher(car.getColor().toLowerCase()).find()
             )
                 displayCar(car);
     }
