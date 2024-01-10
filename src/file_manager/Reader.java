@@ -10,21 +10,26 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class Reader {
-    public static Map<String, String> readSchema(String title) {
-        Map<String, String> pairs = new HashMap<>();
-        String directory = "Schema";
-        String file = title + ".txt";
-        Path fullPath = Paths.get(directory).resolve(file);
+public class Reader
+{
+    static String Database = "./database/";
+    static String Table = Database + "Tables/";
+    static String SchemaDir = Database + "Schemas/";
 
-        ByteBuffer buffer = ByteBuffer.allocate(1024); // Adjust the size as needed
+    public static Map<String, String> readSchema(String title)
+    {
+        Map<String, String> pairs = new HashMap<>();
+        String directory = SchemaDir;
+        Path fullPath = Paths.get(directory).resolve(title);
+
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
 
         try (FileChannel flCh = FileChannel.open(fullPath, StandardOpenOption.READ)) {
             StringBuilder currentKey = new StringBuilder();
             StringBuilder currentValue = new StringBuilder();
             boolean isKey = true;
 
-            while (flCh.read(buffer) != -1) {
+            while (flCh.read(buffer) != -1){
                 buffer.flip();
 
                 while (buffer.hasRemaining()) {
@@ -58,11 +63,12 @@ public class Reader {
         return pairs;
     }
 
-    public static Map<String, String> read(String filePath) {
+    public static Map<String, String> read(String filePath)
+    {
         Map<String, String> dataMap = new HashMap<>();
 
         try (FileChannel fileChannel = FileChannel.open(Path.of(filePath), StandardOpenOption.READ)) {
-            ByteBuffer buffer = ByteBuffer.allocate(1024); // Adjust the size as needed
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
 
             StringBuilder currentKey = new StringBuilder();
             StringBuilder currentValue = new StringBuilder();
@@ -100,8 +106,9 @@ public class Reader {
         return dataMap;
     }
 
-    public static Map<Integer, Map<String, String>> readAll(String schema) {
-        String directoryPath = "ra/" + schema;
+    public static Map<Integer, Map<String, String>> readAll(String schema)
+    {
+        String directoryPath = Table + schema;
         Map<Integer, Map<String, String>> map = new HashMap<>();
 
         try {
@@ -114,7 +121,6 @@ public class Reader {
                                 Map<String, String> value = read(path.toString());
                                 map.put(key, value);
                             } catch (Exception e) {
-                                // Handle exceptions, e.g., log or print an error message
                                 System.err.println("Error processing file: " + path.toString());
                                 e.printStackTrace();
                             }
@@ -127,8 +133,9 @@ public class Reader {
         return map;
     }
 
-    public static Map<Integer, Map<String, String>> readOne(String schema, String searchBy, String index) {
-        String directoryPath = "ra/" + schema;
+    public static Map<Integer, Map<String, String>> readOne(String schema, String searchBy, String index)
+    {
+        String directoryPath = Table + schema;
         Map<Integer, Map<String, String>> map = new HashMap<>();
 
         try {
@@ -156,8 +163,8 @@ public class Reader {
         return map;
     }
 
-
-    private static int getIntFromDirectoryPath(String dirPath) {
+    private static int getIntFromDirectoryPath(String dirPath)
+    {
         String[] roots = dirPath.split("[/\\\\]");  // Match both forward and backward slashes
         String[] filename = roots[roots.length - 1].split("\\.");
 

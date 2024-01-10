@@ -11,13 +11,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static file_manager.Reader.readSchema;
+import static file_manager.Reader.*;
 
 public class Writer {
-    public static void designSchema(String title, Map<String, String> pairs) {
-        String directory = "Schema";
-        String file = title + ".txt";
-        Path fullPath = Paths.get(directory).resolve(file);
+    static String Database = "./database/";
+    static String Table = Database + "Tables/";
+    static String SchemaDir = Database + "Schemas/";
+
+    public static void designSchema(String title, Map<String, String> pairs)
+    {
+        Path fullPath = Paths.get(SchemaDir).resolve(title);
 
         String strKey;
         String strValue;
@@ -52,39 +55,38 @@ public class Writer {
         }
 
         try {
-            Files.createDirectory(Paths.get("ra/" + title));
+            Files.createDirectory(Paths.get(Table + title));
         } catch (IOException e) {
             System.err.println("Error creating directory: " + e.getMessage());
         }
 
         try (
-                FileChannel fileChannel = FileChannel.open(Paths.get("Schema").resolve("ids.txt"), StandardOpenOption.APPEND)
+                FileChannel fileChannel = FileChannel.open(Paths.get(SchemaDir).resolve("ids"), StandardOpenOption.APPEND)
         ) {
-                strKey = title + "\n";
-                strValue = "1" + "\n";
+            strKey = title + "\n";
+            strValue = "1" + "\n";
 
-                dataKey = strKey.getBytes();
-                dataValue = strValue.getBytes();
+            dataKey = strKey.getBytes();
+            dataValue = strValue.getBytes();
 
-                outKey = ByteBuffer.wrap(dataKey);
-                outValue = ByteBuffer.wrap(dataValue);
+            outKey = ByteBuffer.wrap(dataKey);
+            outValue = ByteBuffer.wrap(dataValue);
 
-                while (outKey.hasRemaining())
-                    fileChannel.write(outKey);
-                outKey.rewind();
+            while (outKey.hasRemaining())
+                fileChannel.write(outKey);
+            outKey.rewind();
 
-                while (outValue.hasRemaining())
-                    fileChannel.write(outValue);
-                outValue.rewind();
+            while (outValue.hasRemaining())
+                fileChannel.write(outValue);
+            outValue.rewind();
         } catch (IOException x) {
             System.out.format("IOException: %s", x);
         }
     }
     private static void updateSchemaIds (String title, Map<String, String> pairs)
     {
-        String directory = "Schema";
-        String file = title + ".txt";
-        Path fullPath = Paths.get(directory).resolve(file);
+        String file = title;
+        Path fullPath = Paths.get(SchemaDir).resolve(file);
 
         String strKey;
         String strValue;
@@ -124,12 +126,12 @@ public class Writer {
 
         Map<String, String> schemas = readSchema("ids");
 
-        String directory = "ra/" + schema;
-        String file = schemas.get(schema) + ".txt";
+        String directory = Table + schema;
+        String file = schemas.get(schema);
         Path fullPath = Paths.get(directory).resolve(file);
 
         try (FileChannel fileChannel = FileChannel.open(fullPath, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.READ)) {
-            fileChannel.truncate(0); // Truncate the file to delete its content
+            fileChannel.truncate(0);
 
             for (Map.Entry<String, String> entry : dataMap.entrySet()) {
                 String keyValueString = entry.getKey() + ":" + entry.getValue() + "\n";
@@ -148,12 +150,15 @@ public class Writer {
             System.out.format("IOException: %s%n", e);
         }
     }
-    public static void update(String schema, Map<String, String> dataMap, int id)
+    public static void updateFile(String schema, String key, String value, int id)
     {
+        Map<String, String> dataMap = read(Table + schema + "/" + String.valueOf(id));
+        dataMap.put(key, value);
+
         Map<String, String> schemas = readSchema("ids");
 
-        String directory = "ra/" + schema;
-        String file = String.valueOf(id) + ".txt";
+        String directory = Table + schema;
+        String file = String.valueOf(id);
         Path fullPath = Paths.get(directory).resolve(file);
 
         try (FileChannel fileChannel = FileChannel.open(fullPath, StandardOpenOption.WRITE)) {
@@ -173,7 +178,7 @@ public class Writer {
         }
     }
     public static void deleteFile(String schema, int id) {
-        String dirPath = "ra/" + schema;
+        String dirPath = Table + schema;
         String filePath = String.valueOf(id) + ".txt";
         Path fullPath = Paths.get(dirPath).resolve(filePath);
 
@@ -207,8 +212,6 @@ public class Writer {
     }
     private static boolean validateType(String value, String expectedType)
     {
-        // Implement your type validation logic here
-        // For simplicity, assuming all values are strings in this example
         return expectedType.equals("String");
     }
 }

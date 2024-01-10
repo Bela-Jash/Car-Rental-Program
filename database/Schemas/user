@@ -1,0 +1,10 @@
+password
+String
+phone
+String
+level
+Integer
+email
+String
+username
+String
