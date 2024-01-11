@@ -41,9 +41,6 @@ public class UserService {
         user.setPassword(password);
 
         saveRegisteredUser(user);
-
-        System.out.println("Signup successful!");
-        Console.continueOnEnter();
     }
 
     // ====================== Book a Car ======================
