@@ -78,6 +78,21 @@ public class OwnerService extends AdminService {
                 displayAccount(admin);
     }
 
+    public void createAdmin(String name, String phoneNumber, String email, String password) {
+        Admin admin = new Admin();
+
+        admin.setName(name);
+        admin.setPhoneNumber(phoneNumber);
+        admin.setEmail(email);
+        admin.setPassword(password);
+
+        saveRegisteredAdmin(admin);
+    }
+
+    private void saveRegisteredAdmin(Admin admin) {
+        // ToDo: Write registered admin into file
+    }
+
     public void listAllUsersAscending(String sortBy) {
         List<User> users = userService.getUsers();
         List<User> sortedUsers = new ArrayList<>();
