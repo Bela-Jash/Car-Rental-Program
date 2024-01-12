@@ -14,7 +14,7 @@ public class AllUsersScreen {
 
     public void display() {
         System.out.println();
-        System.out.println("Owner Main Menu > Manage Users > All Users");
+        System.out.println("... > Manage Users > All Users");
         System.out.println("How would you like to sort them?");
         System.out.println("1) By ID number (ascending)");
         System.out.println("2) By ID number (descending)");

@@ -14,7 +14,7 @@ public class AllAdminsScreen {
 
     public void display() {
         System.out.println();
-        System.out.println("Owner Main Menu > Manage Admins > All Admins");
+        System.out.println("... > Manage Admins > All Admins");
         System.out.println("How would you like to sort them?");
         System.out.println("1) By ID number (ascending)");
         System.out.println("2) By ID number (descending)");
