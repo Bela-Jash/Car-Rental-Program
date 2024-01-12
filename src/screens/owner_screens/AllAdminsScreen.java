@@ -21,7 +21,7 @@ public class AllAdminsScreen {
         System.out.println("3) By name (ascending)");
         System.out.println("4) By name (descending)");
 
-        int listSortedAdminsChoice = (int) Console.readNumber("Choice", 1, 6);
+        int listSortedAdminsChoice = (int) Console.readNumber("Choice", 1, 4);
 
         switch (listSortedAdminsChoice) {
             case 1: ownerService.listAllAdminsAscending("id"); break;
