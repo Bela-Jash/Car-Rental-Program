@@ -89,6 +89,14 @@ public class OwnerService extends AdminService {
         saveRegisteredAdmin(admin);
     }
 
+    public void deleteAdmin(Admin admin) {
+        // ToDo: Delete admin account, and update files
+    }
+
+    public void deleteUser(User user) {
+        // ToDo: Delete user account, and update files
+    }
+
     private void saveRegisteredAdmin(Admin admin) {
         // ToDo: Write registered admin into file
     }
