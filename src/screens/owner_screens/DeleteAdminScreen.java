@@ -27,7 +27,7 @@ public class DeleteAdminScreen {
         System.out.println("This action cannot be undone! Are you sure you want to delete this admin account?");
         String choice = Console.readText("Choice (Y/N)", Pattern.compile("[YyNn]"), "Invalid choice. Please try again.");
         if (choice.equalsIgnoreCase("y")) {
-            // ToDo: Delete admin account, and update files
+            ownerService.deleteAdmin(admin);
             System.out.println("Admin account deleted successfully.");
         } else {
             System.out.println("You have chosen not to delete the admin account.");
