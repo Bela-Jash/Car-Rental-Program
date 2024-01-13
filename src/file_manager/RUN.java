@@ -21,8 +21,8 @@ public class RUN
 
 //        item.write();
 
-//        SchemaId Database = new SchemaId();
-//        Database.resetDatabase();
+        SchemaId Database = new SchemaId();
+        Database.resetDatabase();
 //        Database.display();
 
 //        File directory = new File("");
