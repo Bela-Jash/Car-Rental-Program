@@ -198,7 +198,7 @@ public class CarService {
         car.setYear(year);
         car.setQuantityAvailable(quantityAvailable);
         car.setBaseRate(baseRate);
-        // ToDo: Auto-generate id for the car, and write it into file
+        // ToDo: Auto-generate id for the car, and write the car into file
     }
 
     // ====================== Getters ======================
