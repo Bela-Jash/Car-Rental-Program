@@ -10,6 +10,9 @@ public class ERROR {
     }
     public void print()
     {
-        System.out.format("\nstatus: %n\ndescription: %s\n", status, description);
+        System.out.println(String.valueOf("<>").repeat(20));
+        System.out.format("status: %d\ndescription: %s\n", status, description);
+        System.out.println(String.valueOf("<>").repeat(20));
+
     }
 }

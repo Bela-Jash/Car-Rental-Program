@@ -17,9 +17,8 @@ public class SchemaId
     }
     SchemaId(HashMap<String, Map<Integer, Integer>> _tables)
     {
-        Stream<HashMap<String, Map<Integer, Integer>>> stream = new Stream<>();
-        stream.writer(_tables, Constant._SchemaIdsPath);
         this.tables = _tables;
+        updateSchema();
     }
 
     public void updateSchema()
@@ -30,6 +29,14 @@ public class SchemaId
 
     public void addTable(String schemaTitle)
     {
+
+        if (tables.containsKey(schemaTitle))
+        {
+            ERROR e = new ERROR(5000, "schema name already existed.");
+            e.print();
+            return;
+        }
+
         Map<Integer, Integer> rollAndSize = new HashMap<>();
 
         rollAndSize.put(0,0); // Key 0 : for roll numbers which get auto-incremented during data-insertion
@@ -48,6 +55,19 @@ public class SchemaId
         DirectoryManager.deleteDirectory(Constant._TableDirectory + schemaTitle);
 
         updateSchema();
+    }
+
+    public void resetDatabase()
+    {
+        Map<Integer, Integer> zeros = new HashMap<>();
+        zeros.put(0,0);
+        zeros.put(1,0);
+        for (Map.Entry<String, Map<Integer, Integer>> table : tables.entrySet())
+        {
+            tables.put(table.getKey(), zeros);
+            DirectoryManager.cleanDirectory(Constant._TableDirectory + table.getKey());
+        }
+            updateSchema();
     }
 
     private Map<Integer, Integer> schemaDetail(String schemaTitle)
@@ -88,23 +108,24 @@ public class SchemaId
         updateSchema();
     }
 
-    public void display(HashMap<String, Map<Integer, Integer>> tables) {
-        System.out.printf("%-15s%-7s%-7s", "Table", "Exp", "Size");
+    public int getRoll(String schemaTitle)
+    {
+        return tables.get(schemaTitle).get(0);
+    }
+
+    public void display() {
+        System.out.printf(String.valueOf("=").repeat(40) + "\n");
+        System.out.printf("%-15s%-7s%-7s\n", "Table", "Exp", "Size");
 
 
         for (Map.Entry<String, Map<Integer, Integer>> entry : tables.entrySet()) {
             String tableName = entry.getKey();
             Map<Integer, Integer> innerMap = entry.getValue();
 
+            System.out.printf("%-15s%-7s%-7s\n", tableName, innerMap.get(0), innerMap.get(1));
 
-            for (Map.Entry<Integer, Integer> innerEntry : innerMap.entrySet()) {
-                Integer key = innerEntry.getKey();
-                Integer value = innerEntry.getValue();
-
-                System.out.printf("%-15s%-7s%-7s", tableName, key, value);
-            }
-
-            System.out.println();
         }
+        System.out.printf(String.valueOf("=").repeat(40) + "\n");
+
     }
 }
