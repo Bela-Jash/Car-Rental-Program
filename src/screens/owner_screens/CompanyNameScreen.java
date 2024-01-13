@@ -26,13 +26,12 @@ public class CompanyNameScreen {
         if (choice.equalsIgnoreCase("y")) {
             owner.setCompanyName(newCompanyName);
             System.out.println("Your company's name has been successfully changed to \"" + newCompanyName + "\".");
-            Console.continueOnEnter();
         }
         else {
             System.out.println("You have chosen not to change your company's name.");
-            Console.continueOnEnter();
         }
 
+        Console.continueOnEnter();
         ownerScreenManager.switchScreen("WelcomeScreen");
     }
 }
