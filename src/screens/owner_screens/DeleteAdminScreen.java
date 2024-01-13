@@ -19,6 +19,7 @@ public class DeleteAdminScreen {
         System.out.println();
         System.out.println("... > Manage Admins > Delete Admin");
         int adminIdChoice = (int) Console.readNumber("Enter the ID number of the admin you want to delete", 1, ownerService.getAdmins().size());
+        // ToDo: Change the way the specific admin is fetched, and the max of adminIDChoice
         Admin admin = ownerService.getAdmins().get(adminIdChoice - 1);
         System.out.println("Here's the information of the admin you're trying to delete:");
         System.out.println("Name: " + admin.getName());
