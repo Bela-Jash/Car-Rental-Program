@@ -64,33 +64,41 @@ public class Car {
     // ====================== Setters ======================
     public void setId(int id) {
         this.id = id;
+        // ToDo: Write updated field to file
     }
 
     public void setBrand(String brand) {
         this.brand = brand;
+        // ToDo: Write updated field to file
     }
 
     public void setModel(String model) {
         this.model = model;
+        // ToDo: Write updated field to file
     }
 
     public void setType(String type) {
         this.type = type;
+        // ToDo: Write updated field to file
     }
 
     public void setColor(String color) {
         this.color = color;
+        // ToDo: Write updated field to file
     }
 
     public void setYear(int year) {
         this.year = year;
+        // ToDo: Write updated field to file
     }
 
     public void setQuantityAvailable(int quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
+        // ToDo: Write updated field to file
     }
 
     public void setBaseRate(double baseRate) {
         this.baseRate = baseRate;
+        // ToDo: Write updated field to file
     }
 }
