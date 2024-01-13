@@ -17,7 +17,7 @@ public class Car {
     // ====================== Constructors ======================
     public Car() {}
 
-    public Car(int id, String brand, String model, String type, String color, int year, int quantityAvailable, double baseRate, List<String> VINs) {
+    public Car(int id, String brand, String model, String type, String color, int year, int quantityAvailable, double baseRate) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -26,7 +26,6 @@ public class Car {
         this.year = year;
         this.quantityAvailable = quantityAvailable;
         this.baseRate = baseRate;
-        VINs = new ArrayList<>(quantityAvailable);
     }
 
     // ====================== Getters ======================
@@ -89,9 +88,6 @@ public class Car {
 
     public void setQuantityAvailable(int quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
-    }
-
-    public void setVIN(List<String> VINs) {
     }
 
     public void setBaseRate(double baseRate) {
