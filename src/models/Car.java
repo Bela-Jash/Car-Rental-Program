@@ -13,7 +13,6 @@ public class Car {
     private int year;
     private int quantityAvailable;
     private double baseRate;
-    private List<String> VINs;
 
     // ====================== Constructors ======================
     public Car() {}
@@ -28,7 +27,6 @@ public class Car {
         this.quantityAvailable = quantityAvailable;
         this.baseRate = baseRate;
         VINs = new ArrayList<>(quantityAvailable);
-        this.VINs = VINs;
     }
 
     // ====================== Getters ======================
@@ -64,10 +62,6 @@ public class Car {
         return baseRate;
     }
 
-    public List<String> getVINs() {
-        return VINs;
-    }
-
     // ====================== Setters ======================
     public void setId(int id) {
         this.id = id;
@@ -98,7 +92,6 @@ public class Car {
     }
 
     public void setVIN(List<String> VINs) {
-        this.VINs = VINs;
     }
 
     public void setBaseRate(double baseRate) {
