@@ -189,6 +189,18 @@ public class CarService {
                 displayCar(car);
     }
 
+    public void addCar(String brand, String model, String type, String color, int year, int quantityAvailable, double baseRate) {
+        Car car = new Car();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setType(type);
+        car.setColor(color);
+        car.setYear(year);
+        car.setQuantityAvailable(quantityAvailable);
+        car.setBaseRate(baseRate);
+        // ToDo: Auto-generate id for the car, and write it into file
+    }
+
     // ====================== Getters ======================
 
     public List<Car> getCars() {
