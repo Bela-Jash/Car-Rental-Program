@@ -9,8 +9,6 @@ import java.util.Map;
 
 public class User extends Account {
     // ====================== Fields ======================
-//    private List<Car> rentedCars = new ArrayList<>();
-    /** A map of a car as a key and its rent ending date as a value */
     private List<Car> rentedCars;
     private List<Integer> rentedCarsQuantities;
     private List<LocalDate> rentedCarsEndDates;
@@ -34,5 +32,9 @@ public class User extends Account {
 
     public List<LocalDate> getRentedCarsEndDates() {
         return rentedCarsEndDates;
+    }
+
+    public List<Double> getRentedCarsTotalPrices() {
+        return rentedCarsTotalPrices;
     }
 }
