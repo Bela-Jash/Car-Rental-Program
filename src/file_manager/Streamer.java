@@ -3,54 +3,22 @@ package file_manager;
 import file_manager.documentations.Constant;
 
 import java.io.IOException;
-import java.io.Serial;
-import java.io.Serializable;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-class Foo implements Serializable
+public abstract class Streamer
 {
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private String m_data;
-    private double m_size;
-
-    public Foo(String data, double size)
-    {
-        m_data = data;
-        m_size = size;
-    }
-
-    public String getData()
-    {
-        return m_data;
-    }
-
-    public double getSize()
-    {
-        return m_size;
-    }
-
-    public void setData(String data)
-    {
-        m_data = data;
-    }
-
-    public void setSize(double size)
-    {
-        m_size = size;
-    }
     private int m_roll;
-    private static final String myName = "Foo";
-    private static final String myDirPath = Constant._TableDirectory + myName + "/";
+    private static String myName;
+    private static String myDirPath = Constant._TableDirectory + myName + "/";
 
     public void display(){
         System.out.printf(String.valueOf("*").repeat(40) + "\n");
-        System.out.printf("%-10s%-10s%-10s\n", "roll", "data", "size");
-        System.out.printf("%-10d%-10s%-10f\n", m_roll, m_data, m_size);
+        System.out.printf("%-10s%-10s%-10s\n", "roll");
+        System.out.printf("%-10d%-10s%-10f\n", m_roll);
         System.out.printf(String.valueOf("*").repeat(40) + "\n");
     }
 

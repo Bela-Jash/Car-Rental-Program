@@ -9,21 +9,18 @@ public class RUN
 {
     public static void main(String[] args)
     {
+//        Foo i = new Foo("foo", 12.34);
+        List<Foo> item = Foo.readAll();
+        for (Foo i : item)
+        {
+            i.display();
+        }
 
-//        Stream<Foo> stream = new Stream<>();
-
-//        Foo item = new Foo("goo", 12.34);
-//        List<Foo> item = Foo.readAll();
-//        for (Foo i : item)
-//        {
-//            i.display();
-//        }
-
-//        item.write();
+//        i.write();
 
         SchemaId Database = new SchemaId();
-        Database.resetDatabase();
-//        Database.display();
+//        Database.resetDatabase();
+        Database.display();
 
 //        File directory = new File("");
 //        System.out.println(directory.isDirectory());
