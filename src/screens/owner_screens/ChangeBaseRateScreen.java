@@ -4,7 +4,6 @@ import models.Car;
 import screen_managers.OwnerScreenManager;
 import utility.Console;
 
-import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class ChangeBaseRateScreen {
