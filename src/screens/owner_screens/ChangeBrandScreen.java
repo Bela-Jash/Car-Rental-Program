@@ -26,6 +26,7 @@ public class ChangeBrandScreen {
         String choice = Console.readText("Choice (Y/N)", Pattern.compile("[YyNn]"), "Invalid choice. Please try again.");
         if (choice.equalsIgnoreCase("y")) {
             car.setBrand(newBrand);
+            // ToDo: Update the file containing this specific car
             System.out.println("The brand has been successfully changed to \"" + newBrand + "\".");
         }
         else {
