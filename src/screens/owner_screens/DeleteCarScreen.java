@@ -20,6 +20,7 @@ public class DeleteCarScreen {
         System.out.println("... > Manage Cars > Delete Car");
         // ToDo: Adjust the max value of carIDChoice to be the last car id from file
         int carIdChoice = (int) Console.readNumber("Enter the ID number of the car you want to delete", 1, carService.getCars().size());
+        // ToDo: Fetch car from file using carIDChoice (modify the following line)
         Car car = carService.getCars().get(carIdChoice - 1);
         System.out.println("Here's the information of the car you're trying to delete:");
         System.out.println("Brand: " + car.getBrand());

@@ -1,6 +1,5 @@
 package screens.owner_screens;
 
-import models.Admin;
 import models.User;
 import screen_managers.OwnerScreenManager;
 import services.OwnerService;
@@ -21,7 +20,9 @@ public class DeleteUserScreen {
     public void display() {
         System.out.println();
         System.out.println("... > Manage Users > Delete User");
+        // ToDo: Adjust the max value of userIDChoice to be the last car id from file
         int userIdChoice = (int) Console.readNumber("Enter the ID number of the user you want to delete", 1, userService.getUsers().size());
+        // ToDo: Fetch user from file using userIDChoice (modify the following line)
         User user = userService.getUsers().get(userIdChoice - 1);
         System.out.println("Here's the information of the user you're trying to delete:");
         System.out.println("Name: " + user.getName());
