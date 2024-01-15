@@ -17,7 +17,7 @@ public class ChangeYearScreen {
 
     public void display() {
         System.out.println();
-        System.out.println("... > Modify Car > year");
+        System.out.println("... > Modify Car > Year");
         Car car = new Car();
         // ToDo: Fetch car id from CarToBeModified.txt or something, and assign it to car
         System.out.println("The previous year is: " + car.getYear() + ".");
@@ -29,8 +29,7 @@ public class ChangeYearScreen {
             car.setYear(newYear);
             // ToDo: Update the file containing this specific car
             System.out.println("The year has been successfully changed to \"" + newYear + "\".");
-        }
-        else {
+        } else {
             System.out.println("You have chosen not to change the year.");
         }
 
