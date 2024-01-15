@@ -21,7 +21,7 @@ public class SchemaId
         updateSchema();
     }
 
-    public void updateSchema()
+    private void updateSchema()
     {
         Stream<HashMap<String, Map<Integer, Integer>>> stream = new Stream<>();
         stream.writer(tables, Constant._SchemaIdsPath);

@@ -1,0 +1,52 @@
+CREATING A CONNECTION WITH THE DATABASE
+
+    ******
+    SchemaId Database = new SchemaId();
+    ******
+
+GETTING DETAIL OF THE DATABASE TABLES; LIKE NUMBER OF ROWS IN EACH TABLES
+    ******
+    SchemaId Database = new SchemaId();
+    Database.display()
+    ******
+
+ADDING TABLES IN THE DATABASE
+    ******
+    SchemaId Database = new SchemaId();
+    Database.addTable(<name of the table as a string>);
+    ******
+
+REMOVING TABLES IN THE DATABASE
+    ******
+    SchemaId Database = new SchemaId();
+    Database.removeTable(<name of the table as a string>);
+    ******
+
+INSERTING NEW ROW
+    To insert a new row, the class name of the data should exist in the database.
+    create new instance of the class you wanted to insert and use the write method of the class.
+    ******
+    Foo newRow = new Foo();
+    newRow.write();
+    ******
+
+READING A ROW
+    To read a specific row from a table you should have the id of the row.
+    ******
+    Foo readRow = Foo.read(<integer datatype>);
+    ******
+
+DELETING A ROW
+    To delete a row, the object first should be accessed.
+    ******
+    Foo readRow = Foo.read(<integer datatype>); // getting the row
+    readRow.delete();
+    ******
+UPDATING A ROW
+    To update a row, the object should be accessed like in the DELETING.
+    Then use the "update() method".
+
+READING ALL ROWS A TABLE
+    *****
+    List<Foo> wholeTable = Foo.readAll();
+    *****

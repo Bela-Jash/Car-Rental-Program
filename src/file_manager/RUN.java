@@ -11,12 +11,8 @@ public class RUN
 {
     public static void main(String[] args)
     {
-        Car boo = new Car();
-        boo.setBrand("Toyota");
-        boo.setModel("Vits");
-
-        boo.write();
         SchemaId Database = new SchemaId();
+        Database.resetDatabase();
         Database.display();
     }
 }

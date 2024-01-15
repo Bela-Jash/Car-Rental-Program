@@ -77,6 +77,11 @@ public class Foo implements Serializable
         stream.deleter( myDirPath + m_roll);
 
     }
+    public void update()
+    {
+        Stream<Foo> stream = new Stream<>();
+        stream.writer(this,  myDirPath + m_roll);
+    }
 
     public Foo read(int roll)
     {
