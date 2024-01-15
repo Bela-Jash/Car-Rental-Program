@@ -17,19 +17,17 @@ public class ManageAdminsScreen {
         System.out.println("1) List all admins");
         System.out.println("2) Search for an admin");
         System.out.println("3) Create an admin account");
-        System.out.println("4) Modify an admin account");
-        System.out.println("5) Delete an admin account");
-        System.out.println("6) Go back");
+        System.out.println("4) Delete an admin account");
+        System.out.println("5) Go back");
 
-        int manageAdminsChoice = (int) Console.readNumber("Choice", 1, 6);
+        int manageAdminsChoice = (int) Console.readNumber("Choice", 1, 5);
 
         switch (manageAdminsChoice) {
             case 1: ownerScreenManager.switchScreen("AllAdminsScreen"); break;
             case 2: ownerScreenManager.switchScreen("SearchAdminScreen"); break;
             case 3: ownerScreenManager.switchScreen("CreateAdminScreen"); break;
-            case 4: ownerScreenManager.switchScreen("ModifyAdminScreen"); break;
-            case 5: ownerScreenManager.switchScreen("DeleteAdminScreen"); break;
-            case 6: ownerScreenManager.switchScreen("OwnerScreen"); break;
+            case 4: ownerScreenManager.switchScreen("DeleteAdminScreen"); break;
+            case 5: ownerScreenManager.switchScreen("OwnerScreen"); break;
         }
     }
 }

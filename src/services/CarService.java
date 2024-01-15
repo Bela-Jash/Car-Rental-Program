@@ -2,6 +2,7 @@ package services;
 
 import models.Car;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -47,6 +48,8 @@ public class CarService {
     }
 
     private void displayCar(Car car) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(2);
         if (car.getQuantityAvailable() != 0) {
             System.out.printf("%-5s", car.getId());
             System.out.printf("%-20s", car.getBrand());
@@ -55,18 +58,20 @@ public class CarService {
             System.out.printf("%-20s", car.getColor());
             System.out.printf("%-15s", car.getYear());
             System.out.printf("%-25s", car.getQuantityAvailable());
-            System.out.printf("Br. %.2f %n", car.getBaseRate());
+            System.out.println("Br. " + numberFormat.format(car.getBaseRate()));
         }
     }
 
     public void displayCarProperties(Car car) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(2);
         System.out.println("Brand: " + car.getBrand());
         System.out.println("Model: " + car.getModel());
         System.out.println("Type: " + car.getType());
         System.out.println("Color: " + car.getColor());
         System.out.println("Year: " + car.getYear());
         System.out.println("Quantity available: " + car.getQuantityAvailable());
-        System.out.println("Base rate: " + car.getBaseRate());
+        System.out.println("Base rate: Br. " + numberFormat.format(car.getBaseRate()));
     }
 
     // ====================== Listing ======================
@@ -185,6 +190,18 @@ public class CarService {
                     pattern.matcher(car.getColor().toLowerCase()).find()
             )
                 displayCar(car);
+    }
+
+    public void addCar(String brand, String model, String type, String color, int year, int quantityAvailable, double baseRate) {
+        Car car = new Car();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setType(type);
+        car.setColor(color);
+        car.setYear(year);
+        car.setQuantityAvailable(quantityAvailable);
+        car.setBaseRate(baseRate);
+        // ToDo: Auto-generate id for the car, and write the car into file
     }
 
     // ====================== Getters ======================

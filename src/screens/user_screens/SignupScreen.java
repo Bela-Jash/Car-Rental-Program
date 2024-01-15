@@ -24,6 +24,9 @@ public class SignupScreen {
 
         userService.signUp(name, phoneNumber, email, password);
 
+        System.out.println("Signup successful!");
+
+        Console.continueOnEnter();
         userScreenManager.switchScreen("UserScreen");
     }
 }

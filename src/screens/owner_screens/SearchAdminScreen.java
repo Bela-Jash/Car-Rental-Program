@@ -21,5 +21,8 @@ public class SearchAdminScreen {
         System.out.println("(If you don't see any admin, that means there are none with that information.)");
 
         ownerService.searchAdmin(key);
+
+        Console.continueOnEnter();
+        ownerScreenManager.switchScreen("ManageAdminsScreen");
     }
 }

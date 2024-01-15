@@ -4,7 +4,9 @@ import models.Car;
 import models.User;
 import utility.Console;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +43,6 @@ public class UserService {
         user.setPassword(password);
 
         saveRegisteredUser(user);
-
-        System.out.println("Signup successful!");
-        Console.continueOnEnter();
     }
 
     // ====================== Book a Car ======================
@@ -53,6 +52,7 @@ public class UserService {
           - User user = getLoggedInUser;
           - Add the car to user.getRentedCars()
           - Add the carQuantity to user.getRentedCarsQuantities()
+          - Add carQuantity * car.getBaseRate() to user.getRentedCarsTotalPrices()
           - Add the endDate to user.getRentedUsersEndDates()
           - Save updated user
           - Decrease the car.getQuantityAvailable() by carQuantity
@@ -65,9 +65,22 @@ public class UserService {
 
     // ====================== List Rented Cars ======================
     public void listRentedCars() {
-//        displayCarListHeaders();
-//        for (Car rentedCar : getLoggedInUser().getRentedCars().keySet())
-//            carService.displayCar(rentedCar);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        User user = getLoggedInUser();
+        displayRentedCarsListHeaders();
+        for (int i = 0; i < user.getRentedCars().size(); i++) {
+            System.out.printf("%-5s", user.getRentedCars().get(i).getId());
+            System.out.printf("%-20s", user.getRentedCars().get(i).getBrand());
+            System.out.printf("%-20s", user.getRentedCars().get(i).getModel());
+            System.out.printf("%-20s", user.getRentedCars().get(i).getType());
+            System.out.printf("%-20s", user.getRentedCars().get(i).getColor());
+            System.out.printf("%-15s", user.getRentedCars().get(i).getYear());
+            System.out.printf("%-20s", user.getRentedCarsQuantities().get(i));
+            System.out.printf("%-20s", numberFormat.format(user.getRentedCarsTotalPrices().get(i)));
+            System.out.println(user.getRentedCarsEndDates().get(i).format(dateTimeFormatter));
+        }
     }
 
     // ====================== Getters ======================
@@ -108,19 +121,6 @@ public class UserService {
         System.out.printf("%-20s", "Quantity");
         System.out.printf("%-20s", "Total Price");
         System.out.println("Rented Until");
-    }
-
-    public void displayRentedCar(Car car) {
-        if (car.getQuantityAvailable() != 0) {
-            System.out.printf("%-5s", car.getId());
-            System.out.printf("%-20s", car.getBrand());
-            System.out.printf("%-20s", car.getModel());
-            System.out.printf("%-20s", car.getType());
-            System.out.printf("%-20s", car.getColor());
-            System.out.printf("%-15s", car.getYear());
-            System.out.printf("%-25s", car.getQuantityAvailable());
-            System.out.printf("Br. %.2f %n", car.getBaseRate());
-        }
     }
 
     public void checkRentedCars() {
