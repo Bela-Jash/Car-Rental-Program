@@ -44,13 +44,15 @@ class Foo implements Serializable
         m_size = size;
     }
     private int m_roll;
+    // generic type
     private static final String myName = "Foo";
     private static final String myDirPath = Constant._TableDirectory + myName + "/";
 
+    // generic type
     public void display(){
         System.out.printf(String.valueOf("*").repeat(40) + "\n");
-        System.out.printf("%-10s%-10s%-10s\n", "roll", "data", "size");
-        System.out.printf("%-10d%-10s%-10f\n", m_roll, m_data, m_size);
+        System.out.printf("%-10s%-10s%-10s\n", "roll");
+        System.out.printf("%-10d%-10s%-10f\n", m_roll);
         System.out.printf(String.valueOf("*").repeat(40) + "\n");
     }
 
@@ -60,7 +62,7 @@ class Foo implements Serializable
         database.incrementSize(myName);
         m_roll = database.getRoll(myName);
 
-
+        // generic type
         Stream<Foo> stream = new Stream<>();
         stream.writer(this,  myDirPath + m_roll);
     }
@@ -70,6 +72,7 @@ class Foo implements Serializable
         SchemaId database = new SchemaId();
         database.decrementSize(myName);
 
+        // generic type
         Stream<Foo> stream = new Stream<>();
         stream.deleter( myDirPath + m_roll);
 
@@ -77,20 +80,24 @@ class Foo implements Serializable
 
     public Foo read(int roll)
     {
+        // generic type
         Stream<Foo> stream = new Stream<>();
         return stream.reader(myDirPath + roll);
     }
 
+    // generic type
     private static Foo read(String filePath)
     {
+        // generic type
         Stream<Foo> stream = new Stream<>();
         return stream.reader(filePath);
     }
 
+    // generic type
     public static List<Foo> readAll()
     {
-        Stream<Foo> stream = new Stream<>();
-        List<Foo> ls = new ArrayList<>();
+        Stream<Foo> stream = new Stream<>(); // generic type
+        List<Foo> ls = new ArrayList<>(); // generic type
 
         try {
             Files.walk(Paths.get(myDirPath), Integer.MAX_VALUE, FileVisitOption.FOLLOW_LINKS)
