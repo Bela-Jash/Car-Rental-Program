@@ -204,6 +204,10 @@ public class CarService {
         // ToDo: Auto-generate id for the car, and write the car into file
     }
 
+    public void deleteCar(Car car) {
+        // ToDo: Write the logic for deleting a car
+    }
+
     // ====================== Getters ======================
 
     public List<Car> getCars() {
