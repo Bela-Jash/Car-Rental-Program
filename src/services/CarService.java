@@ -22,6 +22,9 @@ public class CarService {
     // ====================== Initialize cars List ======================
     private void initializeLists() {
         // ToDo: Read from files into the cars List
+
+
+
         for (Car car : cars) {
             carBrands.add(car.getBrand());
             carTypes.add(car.getType());
