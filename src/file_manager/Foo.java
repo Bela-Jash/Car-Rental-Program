@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 
-class Foo implements Serializable
+public class Foo implements Serializable
 {
     @Serial
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,7 @@
 package file_manager;
 
+import models.Car;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -9,21 +11,12 @@ public class RUN
 {
     public static void main(String[] args)
     {
-//        Foo i = new Foo("foo", 12.34);
-        List<Foo> item = Foo.readAll();
-        for (Foo i : item)
-        {
-            i.display();
-        }
+        Car boo = new Car();
+        boo.setBrand("Toyota");
+        boo.setModel("Vits");
 
-//        i.write();
-
+        boo.write();
         SchemaId Database = new SchemaId();
-//        Database.resetDatabase();
         Database.display();
-
-//        File directory = new File("");
-//        System.out.println(directory.isDirectory());
-
     }
 }

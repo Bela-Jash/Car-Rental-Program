@@ -10,12 +10,12 @@ import java.util.Map;
 public class SchemaId
 {
     private HashMap<String, Map<Integer, Integer>> tables = new HashMap<>();
-    SchemaId()
+    public SchemaId()
     {
         Stream<HashMap<String, Map<Integer, Integer>>> stream = new Stream<>();
         tables = stream.reader(Constant._SchemaIdsPath);
     }
-    SchemaId(HashMap<String, Map<Integer, Integer>> _tables)
+    public SchemaId(HashMap<String, Map<Integer, Integer>> _tables)
     {
         this.tables = _tables;
         updateSchema();
