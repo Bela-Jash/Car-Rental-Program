@@ -22,6 +22,8 @@ public class OwnerService extends AdminService {
 
     private void fetchOwnerCredentials() {
         // ToDo: Fetch owner credentials from file, and assign it to the field owner
+        // ToDo: Delete the following line
+        owner = new Owner("Bela Jash", "0999999999", "a@b.c", "11111111");
     }
 
     public Owner getOwner() {

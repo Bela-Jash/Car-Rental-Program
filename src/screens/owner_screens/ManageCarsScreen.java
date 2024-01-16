@@ -22,7 +22,7 @@ public class ManageCarsScreen {
         System.out.println("6) Delete a car");
         System.out.println("7) Go back");
 
-        int manageCarsChoice = (int) Console.readNumber("Choice", 1, 9);
+        int manageCarsChoice = (int) Console.readNumber("Choice", 1, 7);
 
         switch (manageCarsChoice) {
             case 1: ownerScreenManager.switchScreen("AllCarsScreen"); break;

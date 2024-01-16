@@ -7,6 +7,11 @@ public class Owner extends Admin {
     /** The maximum number of days between the starting and ending date of the rent */
     private int maxDaysBetweenStartAndEndDate = 60;
 
+    public Owner() {}
+    public Owner(String name, String phoneNumber, String email, String password) {
+        super(name, phoneNumber, email, password);
+    }
+
     public void createAdminAccount() {}
     public void removeAdminAccount() {}
     public void removeUserAccount() {}

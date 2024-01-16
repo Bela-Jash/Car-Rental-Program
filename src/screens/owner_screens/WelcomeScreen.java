@@ -1,11 +1,18 @@
 package screens.owner_screens;
 
+import screen_managers.OwnerScreenManager;
 import services.OwnerService;
 import utility.Console;
 import utility.Patterns;
 
 public class WelcomeScreen {
+    private final OwnerScreenManager ownerScreenManager;
     private final OwnerService ownerService = new OwnerService();
+
+    public WelcomeScreen(OwnerScreenManager ownerScreenManager) {
+        this.ownerScreenManager = ownerScreenManager;
+    }
+
     public void display() {
         System.out.println();
         System.out.println("Welcome, owner.");
@@ -21,5 +28,6 @@ public class WelcomeScreen {
 
         System.out.println("Login successful!");
         Console.continueOnEnter();
+        ownerScreenManager.switchScreen("OwnerScreen");
     }
 }

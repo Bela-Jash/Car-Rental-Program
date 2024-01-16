@@ -32,6 +32,6 @@ public class CompanyNameScreen {
         }
 
         Console.continueOnEnter();
-        ownerScreenManager.switchScreen("WelcomeScreen");
+        ownerScreenManager.switchScreen("OwnerScreen");
     }
 }

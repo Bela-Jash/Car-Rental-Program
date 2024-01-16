@@ -43,6 +43,5 @@ public class OwnerScreen {
             case 5: ownerScreenManager.switchScreen("AccountScreen"); break;
             case 6: break;
         }
-
     }
 }
