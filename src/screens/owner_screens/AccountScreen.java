@@ -23,11 +23,11 @@ public class AccountScreen {
         int modifyAccountChoice = (int) Console.readNumber("Choice", 1, 5);
 
         switch (modifyAccountChoice) {
-            case 1: ownerScreenManager.switchScreen("ChangeNameScreen");
-            case 2: ownerScreenManager.switchScreen("ChangePhoneNumberScreen");
-            case 3: ownerScreenManager.switchScreen("ChangeEmailScreen");
-            case 4: ownerScreenManager.switchScreen("ChangePasswordScreen");
-            case 5: break;
+            case 1: ownerScreenManager.switchScreen("ChangeNameScreen"); break;
+            case 2: ownerScreenManager.switchScreen("ChangePhoneNumberScreen"); break;
+            case 3: ownerScreenManager.switchScreen("ChangeEmailScreen"); break;
+            case 4: ownerScreenManager.switchScreen("ChangePasswordScreen"); break;
+            case 5: ownerScreenManager.switchScreen("OwnerScreen"); break;
         }
     }
 }
