@@ -20,7 +20,7 @@ public class ChangeTypeScreen {
         Car car = new Car();
         // ToDo: Fetch car id from CarToBeModified.txt or something, and assign it to car
         System.out.println("The previous type is: " + car.getType() + ".");
-        String newType = Console.readText("Enter the new type", Patterns.carTypePattern, "Invalid format or too many characters. Please try again.");
+        String newType = Console.readText("Enter the new type", Patterns.carTypePattern, "Invalid format or too few or too many characters. Please try again.");
         System.out.println("The type of this car will henceforth be: " + newType + ".");
         System.out.println("Are you sure you want to change it to that?");
         String choice = Console.readText("Choice (Y/N)", Pattern.compile("[YyNn]"), "Invalid choice. Please try again.");

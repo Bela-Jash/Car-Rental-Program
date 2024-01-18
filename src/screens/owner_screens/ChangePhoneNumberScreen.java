@@ -19,7 +19,7 @@ public class ChangePhoneNumberScreen {
         System.out.println("Your previous phone number is: " + ownerService.getOwner().getPhoneNumber() + ".");
         String newPhoneNumber = Console.readText("Enter your new phone number", Patterns.phoneNumberPattern, "Please enter your phone number with the correct format (09/07xxxxxxxx).");
         while (true) {
-            String password = Console.readText("Enter your password", Patterns.noPattern, "Too many characters. Please try again.");
+            String password = Console.readText("Enter your password", Patterns.noPattern, "Too few or too many characters. Please try again.");
             if (password.equals(ownerService.getOwner().getPassword())) {
                 ownerService.getOwner().setPhoneNumber(newPhoneNumber);
                 // ToDo: Write updated owner into file

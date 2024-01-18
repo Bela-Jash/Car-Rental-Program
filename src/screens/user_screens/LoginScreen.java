@@ -19,8 +19,8 @@ public class LoginScreen {
         System.out.println("Enter your credentials to log in.");
         boolean userIsAuthenticated;
         while (true) {
-            String emailOrPhoneNumber = Console.readText("Enter your email or phone number", Patterns.noPattern, "Too many characters. Please try again.");
-            String password = Console.readText("Enter your password", Patterns.noPattern, "Too many characters. Please try again.");
+            String emailOrPhoneNumber = Console.readText("Enter your email or phone number", Patterns.noPattern, "Too few or too many characters. Please try again.");
+            String password = Console.readText("Enter your password", Patterns.noPattern, "Too few or too many characters. Please try again.");
             userIsAuthenticated = userService.logIn(emailOrPhoneNumber, password);
             if (userIsAuthenticated) break;
             System.out.println("Your email or phone number, and/or password is incorrect. Please try again.");

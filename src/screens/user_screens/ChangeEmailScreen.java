@@ -19,7 +19,7 @@ public class ChangeEmailScreen {
         System.out.println("Your previous email address is: " + userService.getLoggedInUser().getEmail() + ".");
         String newEmail = Console.readText("Enter your new email address", Patterns.emailPattern, "Please enter your email address with the correct format (e.g. janedoe123@gmail.com).");
         while (true) {
-            String password = Console.readText("Enter your password", Patterns.noPattern, "Too many characters. Please try again.");
+            String password = Console.readText("Enter your password", Patterns.noPattern, "Too few or too many characters. Please try again.");
             if (password.equals(userService.getLoggedInUser().getPassword())) {
                 userService.getLoggedInUser().setEmail(newEmail);
                 // ToDo: Write updated user into file, and update loggedInUser.txt

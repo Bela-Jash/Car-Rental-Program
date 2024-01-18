@@ -19,7 +19,7 @@ public class CompanyNameScreen {
         System.out.println();
         System.out.println("Welcome Screen > Owner Main Menu > Change Company Name");
         System.out.println("Your previous company name is \"" + owner.getCompanyName() + "\".");
-        String newCompanyName = Console.readText("Enter the new name of the company", Patterns.noPattern, "Too many characters. Please try again.");
+        String newCompanyName = Console.readText("Enter the new name of the company", Patterns.noPattern, "Too few or too many characters. Please try again.");
         System.out.println("Your company name will henceforth be \"" + newCompanyName + "\".");
         System.out.println("Are you sure you want to change it to that?");
         String choice = Console.readText("Choice (Y/N)", Pattern.compile("[YyNn]"), "Invalid choice. Please try again.");

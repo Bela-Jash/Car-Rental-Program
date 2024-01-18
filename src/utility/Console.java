@@ -50,7 +50,7 @@ public abstract class Console {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         while (true) {
             try {
-                inputDate = readText(prompt, Patterns.noPattern, "Too many characters. Please try again.");
+                inputDate = readText(prompt, Patterns.noPattern, "Too few or too many characters. Please try again.");
                 date = LocalDate.parse(inputDate, dateTimeFormatter);
                 if ((date.isEqual(minDate) || date.isAfter(minDate)) && (date.isEqual(maxDate) || date.isBefore(maxDate))) break;
                 System.out.println(correctionText);
