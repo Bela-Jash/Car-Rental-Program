@@ -1,6 +1,6 @@
 package file_manager;
 
-import file_manager.documentations.Constant;
+import utility.Directory;
 import file_manager.errorMessage.ERROR;
 import file_manager.utils.DirectoryManager;
 
@@ -13,7 +13,7 @@ public class SchemaId
     SchemaId()
     {
         Stream<HashMap<String, Map<Integer, Integer>>> stream = new Stream<>();
-        tables = stream.reader(Constant._SchemaIdsPath);
+        tables = stream.reader(Directory.SchemaIdsPath);
     }
     SchemaId(HashMap<String, Map<Integer, Integer>> _tables)
     {
@@ -24,7 +24,7 @@ public class SchemaId
     public void updateSchema()
     {
         Stream<HashMap<String, Map<Integer, Integer>>> stream = new Stream<>();
-        stream.writer(tables, Constant._SchemaIdsPath);
+        stream.writer(tables, Directory.SchemaIdsPath);
     }
 
     public void addTable(String schemaTitle)
@@ -44,7 +44,7 @@ public class SchemaId
 
         tables.put(schemaTitle, rollAndSize);
 
-        DirectoryManager.createDirectory(Constant._TableDirectory + schemaTitle);
+        DirectoryManager.createDirectory(Directory.TableDirectory + schemaTitle);
 
         updateSchema();
     }
@@ -52,7 +52,7 @@ public class SchemaId
     public void removeTable(String schemaTitle)
     {
         tables.remove(schemaTitle);
-        DirectoryManager.deleteDirectory(Constant._TableDirectory + schemaTitle);
+        DirectoryManager.deleteDirectory(Directory.TableDirectory + schemaTitle);
 
         updateSchema();
     }
@@ -65,7 +65,7 @@ public class SchemaId
         for (Map.Entry<String, Map<Integer, Integer>> table : tables.entrySet())
         {
             tables.put(table.getKey(), zeros);
-            DirectoryManager.cleanDirectory(Constant._TableDirectory + table.getKey());
+            DirectoryManager.cleanDirectory(Directory.TableDirectory + table.getKey());
         }
             updateSchema();
     }

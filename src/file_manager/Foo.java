@@ -1,6 +1,6 @@
 package file_manager;
 
-import file_manager.documentations.Constant;
+import utility.Directory;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -63,7 +63,7 @@ class Foo implements Serializable
 
 
         Stream<Foo> stream = new Stream<>();
-        stream.writer(this, Constant._TableDirectory + myPath + roll);
+        stream.writer(this, Directory.TableDirectory + myPath + roll);
     }
 
     public void delete()
@@ -72,14 +72,14 @@ class Foo implements Serializable
         database.decrementSize(myName);
 
         Stream<Foo> stream = new Stream<>();
-        stream.deleter(Constant._TableDirectory + myPath + m_roll);
+        stream.deleter(Directory.TableDirectory + myPath + m_roll);
 
     }
 
     public static Foo read(int roll)
     {
         Stream<Foo> stream = new Stream<>();
-        return stream.reader(Constant._TableDirectory + myPath + roll);
+        return stream.reader(Directory.TableDirectory + myPath + roll);
     }
 
     private static Foo read(String filePath)
@@ -94,7 +94,7 @@ class Foo implements Serializable
         List<Foo> ls = new ArrayList<>();
 
         try {
-            Files.walk(Paths.get(Constant._TableDirectory + myPath), Integer.MAX_VALUE, FileVisitOption.FOLLOW_LINKS)
+            Files.walk(Paths.get(Directory.TableDirectory + myPath), Integer.MAX_VALUE, FileVisitOption.FOLLOW_LINKS)
                     .filter(Files::isRegularFile)
                     .forEach(path -> {
                         ls.add(read(path.toString()));
