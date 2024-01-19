@@ -20,7 +20,7 @@ public class ChangeColorScreen {
         Car car = new Car();
         // ToDo: Fetch car id from CarToBeModified.txt or something, and assign it to car
         System.out.println("The previous color is: " + car.getColor() + ".");
-        String newColor = Console.readText("Enter the new color", Patterns.carColorPattern, "Invalid format or too many characters. Please try again.");
+        String newColor = Console.readText("Enter the new color", Patterns.carColorPattern, "Invalid format or too few or too many characters. Please try again.");
         System.out.println("The color of this car will henceforth be: " + newColor + ".");
         System.out.println("Are you sure you want to change it to that?");
         String choice = Console.readText("Choice (Y/N)", Pattern.compile("[YyNn]"), "Invalid choice. Please try again.");

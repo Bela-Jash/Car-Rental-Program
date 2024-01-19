@@ -17,7 +17,7 @@ public class SearchCarScreen {
     public void display() {
         System.out.println();
         System.out.println("... > User Main Menu > Search Car");
-        String key = Console.readText("Enter the car's ID number, brand, model, type, year, or color", Patterns.noPattern, "Too many characters. Please try again.");
+        String key = Console.readText("Enter the car's ID number, brand, model, type, year, or color", Patterns.noPattern, "Too few or too many characters. Please try again.");
         System.out.println("Here are the cars with properties that match the term \"" + key + "\":");
         System.out.println("(If you don't see any car, that means there are none with that property.)");
 

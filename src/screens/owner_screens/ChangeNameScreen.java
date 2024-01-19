@@ -19,7 +19,7 @@ public class ChangeNameScreen {
         System.out.println("Your previous name is: " + ownerService.getOwner().getName() + ".");
         String newName = Console.readText("Enter your new full name", Patterns.namePattern, "Please enter your full name with the correct format (e.g. John Doe).");
         while (true) {
-            String password = Console.readText("Enter your password", Patterns.noPattern, "Too many characters. Please try again.");
+            String password = Console.readText("Enter your password", Patterns.noPattern, "Too few or too many characters. Please try again.");
             if (password.equals(ownerService.getOwner().getPassword())) {
                 ownerService.getOwner().setName(newName);
                 // ToDo: Write updated owner into file

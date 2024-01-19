@@ -20,7 +20,7 @@ public class ChangeModelScreen {
         Car car = new Car();
         // ToDo: Fetch car id from CarToBeModified.txt or something, and assign it to car
         System.out.println("The previous model is: " + car.getModel() + ".");
-        String newModel = Console.readText("Enter the new model", Patterns.carModelPattern, "Invalid format or too many characters. Please try again.");
+        String newModel = Console.readText("Enter the new model", Patterns.carModelPattern, "Invalid format or too few or too many characters. Please try again.");
         System.out.println("The model of this car will henceforth be: " + newModel + ".");
         System.out.println("Are you sure you want to change it to that?");
         String choice = Console.readText("Choice (Y/N)", Pattern.compile("[YyNn]"), "Invalid choice. Please try again.");
