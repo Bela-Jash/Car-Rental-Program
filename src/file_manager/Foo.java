@@ -58,7 +58,7 @@ class Foo implements Serializable
     {
         SchemaId database = new SchemaId();
         database.incrementSize(myName);
-        int roll = database.getRoll(myName);
+        int roll = database.getTableLatestId(myName);
         m_roll = roll;
 
 
