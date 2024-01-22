@@ -12,10 +12,10 @@ public class SchemaId
     private final DirectoryManager directoryManager = new DirectoryManager();
     private final Stream<HashMap<String, Map<String, Integer>>> stream = new Stream<>();
 
-    SchemaId() {
+    public SchemaId() {
         tables = stream.reader(Directory.SchemaIdsPath);
     }
-    SchemaId(HashMap<String, Map<String, Integer>> tables) {
+    public SchemaId(HashMap<String, Map<String, Integer>> tables) {
         this.tables = tables;
         updateSchema();
     }
@@ -99,18 +99,16 @@ public class SchemaId
     }
 
     public void display() {
-        System.out.printf("=".repeat(40) + "\n");
-        System.out.printf("%-15s%-7s%-7s\n", "Table", "Exp", "Size");
-
+        System.out.println("=".repeat(40));
+        System.out.printf("%-15s%-7s%-7s\n", "Table", "ID", "Size");
 
         for (var entry : tables.entrySet()) {
             String tableName = entry.getKey();
             Map<String, Integer> innerMap = entry.getValue();
 
-            System.out.printf("%-15s%-7s%-7s\n", tableName, innerMap.get(0), innerMap.get(1));
+            System.out.printf("%-15s%-7s%-7s\n", tableName, innerMap.get("id"), innerMap.get("size"));
 
         }
-        System.out.printf("=".repeat(40) + "\n");
-
+        System.out.println("=".repeat(40));
     }
 }
