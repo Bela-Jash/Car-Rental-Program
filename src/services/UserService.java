@@ -1,9 +1,15 @@
 package services;
 
+import file_manager.SchemaId;
+import file_manager.Stream;
 import models.Car;
 import models.User;
-import utility.Console;
+import utility.Directory;
 
+import java.io.*;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,39 +22,54 @@ public class UserService {
     private final CarService carService = new CarService();
     private UserService userService;
     private List<User> users = new ArrayList<>();
+    private final String className = "User";
+    private final String classPath = className + "/";
+    private final SchemaId database = new SchemaId();
+    private final Stream<User> userStream = new Stream<>();
+    private final Stream<Car> carStream = new Stream<>();
 
-    // ====================== Log In ======================
+    // ====================== Log In and Out ======================
     public boolean logIn(String emailOrPhoneNumber, String password) {
         // ToDo: Delete the following two lines after implementing file read/write
-        User user1 = new User("Abel", "0999999999", "a@b.c", "11111111");
-        users.add(user1);
+//        User user1 = new User("Abel", "0999999999", "a@b.c", "11111111");
+//        users.add(user1);
         initializeUsersList();
         for (User user : users)
             if (emailOrPhoneNumber.equals(user.getEmail()) ||
                     emailOrPhoneNumber.equals(user.getPhoneNumber()))
                 if (password.equals(user.getPassword())) {
-                    saveLoggedInUser(user);
+                    saveLoggedInUser(user.getId());
                     return true;
                 }
         return false;
     }
+    public boolean logOut() {
+        boolean operationSuccessful = true;
+        try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(Directory.DatabaseDirectory + "LoggedInUserId"))) {
+            dataOutputStream.writeInt(-1);
+        } catch (IOException e) {
+            operationSuccessful = false;
+        }
+        // ToDo: Utilize this return value at the method call
+        return operationSuccessful;
+    }
 
     // ====================== Sign Up ======================
-    public void signUp(String name, String phoneNumber, String email, String password) {
+    public boolean signUp(String name, String phoneNumber, String email, String password) {
         User user = new User();
-
+        user.setId(database.getTableLatestId(className));
         user.setName(name);
         user.setPhoneNumber(phoneNumber);
         user.setEmail(email);
         user.setPassword(password);
 
-        saveRegisteredUser(user);
+        return saveRegisteredUser(user) && saveLoggedInUser(user.getId());
     }
 
     // ====================== Book a Car ======================
-    public void bookCar(Car car, int carQuantity, LocalDate startDate, int numberOfRentingDays) {
+    public boolean bookCar(Car car, int carQuantity, LocalDate startDate, int numberOfRentingDays) {
         /*
-        ToDo:
+        ToDo (Done):
           - User user = getLoggedInUser;
           - Add the car to user.getRentedCars()
           - Add the carQuantity to user.getRentedCarsQuantities()
@@ -58,9 +79,17 @@ public class UserService {
           - Decrease the car.getQuantityAvailable() by carQuantity
           - Save updated car
          */
+        User user = getLoggedInUser();
+        user.getRentedCars().add(car);
+        user.getRentedCarsQuantities().add(carQuantity);
+        user.getRentedCarsEndDates().add(startDate.plusDays(numberOfRentingDays));
+        user.getRentedCarsTotalPrices().add(car.getBaseRate() * numberOfRentingDays);
+
         car.setQuantityAvailable(car.getQuantityAvailable() - carQuantity);
 
-        System.out.println("Car booked successfully.");
+        // ToDo: Check if both stream operations work. If one of them fails, revert both objects back
+        return userStream.writer(user, Directory.TableDirectory + classPath + user.getId()) &&
+                carStream.writer(car, Directory.TableDirectory + carService.getClassPath() + car.getId());
     }
 
     // ====================== List Rented Cars ======================
@@ -84,10 +113,19 @@ public class UserService {
     }
 
     // ====================== Getters ======================
+    public User fetchUserById(int id) {
+        // ToDo: Check to see if the returned User is null or not at the method call
+        return userStream.reader(Directory.TableDirectory + classPath + id);
+    }
+
     public User getLoggedInUser() {
-        User user = new User();
-        // ToDo: Fetch user from loggedInUser.txt file, and assign it to user
-        return user;
+        // ToDo (Done): Fetch user from loggedInUser.txt file
+        // ToDo: Check to see if the returned User is null or not at the method call
+        try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(Directory.DatabaseDirectory + "LoggedInUserId"))) {
+            return fetchUserById(dataInputStream.readInt());
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public List<User> getUsers() {
@@ -97,18 +135,40 @@ public class UserService {
 
     // ====================== Reading ======================
 
-    private void initializeUsersList() {
-        // ToDo: Initialize users from files
+    private boolean initializeUsersList() {
+        // ToDo (Done): Initialize users from files
+        boolean operationSuccessful = true;
+        try {
+            Files.walk(Paths.get(Directory.TableDirectory + classPath), Integer.MAX_VALUE, FileVisitOption.FOLLOW_LINKS)
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> users.add(userStream.reader(path.toString())));
+        } catch (IOException e) {
+            operationSuccessful = false;
+        }
+        // ToDo: Utilize this return value at the method call
+        return operationSuccessful;
     }
 
     // ====================== Writing ======================
-    private void saveLoggedInUser(User user) {
+    private boolean saveLoggedInUser(int id) {
         // ToDo: Write logged in user into loggedInUser.txt file
+        boolean operationSuccessful = true;
+        try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(Directory.DatabaseDirectory + "LoggedInUserId"))) {
+            dataOutputStream.writeInt(id);
+        } catch (IOException e) {
+            operationSuccessful = false;
+        }
+        // ToDo: Utilize this return value at the method call
+        return operationSuccessful;
     }
 
-    private void saveRegisteredUser(User user) {
-        // ToDo: Add registered user to registeredUsers.txt file
-        // ToDo: Write registered user into loggedInUser.txt file
+    private boolean saveRegisteredUser(User user) {
+        // ToDo (Done): Add registered user to registeredUsers.txt file
+        // ToDo (Done): Write registered user into loggedInUser.txt file
+        database.incrementSize(className);
+        saveLoggedInUser(user.getId());
+        // ToDo: Utilize this return value at the method call
+        return userStream.writer(user, Directory.TableDirectory + classPath + user.getId());
     }
 
     public void displayRentedCarsListHeaders() {
@@ -123,18 +183,39 @@ public class UserService {
         System.out.println("Rented Until");
     }
 
-    public void checkRentedCars() {
+    public boolean checkRentedCars() {
 //        List<Car> cars = carService.getCars();
 //        for (User user : users) {
 //            for (var carDateMap : user.getRentedCars().entrySet())
 //                if (carDateMap.getValue().isAfter(LocalDate.now()))
 //                    /*
-//                    ToDo: Return the rented car to cars List, i.e.,
+//                    ToDo (Done): Return the rented car to cars List, i.e.,
 //                      - add the carQuantity of the rented car to quantityAvailable in cars List
 //                      - add the VINs of the rented car to the List of VINs of the car in cars
 //                      - remove the car from rentedCars
 //                     */
 //
 //        }
+        initializeUsersList();
+        boolean operationSuccessful = true;
+        for (User user : users) {
+            for (int i = user.getRentedCars().size(); i >= 0; i--) {
+                if (user.getRentedCarsEndDates().get(i).isAfter(LocalDate.now())) {
+                    Car car = user.getRentedCars().remove(i);
+                    int carQuantity = user.getRentedCarsQuantities().remove(i);
+                    user.getRentedCarsEndDates().remove(i);
+                    user.getRentedCarsTotalPrices().remove(i);
+
+                    car.setQuantityAvailable(car.getQuantityAvailable() + carQuantity);
+
+                    operationSuccessful =
+                            userStream.writer(user, Directory.TableDirectory + classPath + user.getId()) &&
+                            carStream.writer(car, Directory.TableDirectory + carService.getClassPath() + car.getId());
+                }
+                if (!operationSuccessful) break;
+            }
+            if (!operationSuccessful) break;
+        }
+        return operationSuccessful;
     }
 }

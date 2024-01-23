@@ -264,6 +264,10 @@ public class CarService {
         return database.getTableLatestId(className) - 1;
     }
 
+    public String getClassPath() {
+        return classPath;
+    }
+
     public boolean saveToBeModifiedCarId(int id) {
         boolean operationSuccessful = true;
         try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(Directory.DatabaseDirectory + "ToBeModifiedCarId"))) {
@@ -271,6 +275,7 @@ public class CarService {
         } catch (IOException e) {
             operationSuccessful = false;
         }
+        // ToDo: Utilize this return value at the method call
         return operationSuccessful;
     }
 

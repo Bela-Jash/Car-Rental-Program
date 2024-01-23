@@ -1,5 +1,7 @@
 package file_manager;
 
+import services.UserService;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -22,11 +24,20 @@ public class RUN
 //        item.write();
 
         SchemaId Database = new SchemaId();
-        Database.resetDatabase();
+//        Database.resetDatabase();
 //        Database.display();
 
 //        File directory = new File("");
 //        System.out.println(directory.isDirectory());
 
+//        Database.addTable("Admin");
+//        Database.addTable("Car");
+//        Database.addTable("Owner");
+//        Database.addTable("User");
+        Database.resetDatabase();
+//        UserService userService = new UserService();
+//        System.out.println(userService.getLoggedInUser());
+
+        Database.display();
     }
 }

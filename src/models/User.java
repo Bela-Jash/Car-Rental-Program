@@ -2,12 +2,16 @@ package models;
 
 import services.CarService;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class User extends Account {
+public class User extends Account implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     // ====================== Fields ======================
     private List<Car> rentedCars;
     private List<Integer> rentedCarsQuantities;
