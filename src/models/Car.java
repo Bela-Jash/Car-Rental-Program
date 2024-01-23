@@ -1,11 +1,17 @@
 package models;
 
+import file_manager.Stream;
+import utility.Directory;
+
 import java.io.Serial;
 import java.io.Serializable;
 
 public class Car implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+    private final Stream<Car> stream = new Stream<>();
+    private final String className = "Car";
+    private final String classPath = className + "/";
     // ====================== Fields ======================
     private int id;
     private String brand;
@@ -64,43 +70,60 @@ public class Car implements Serializable {
     }
 
     // ====================== Setters ======================
-    public void setId(int id) {
+    public boolean setId(int id) {
         this.id = id;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+
     }
 
-    public void setBrand(String brand) {
+    public boolean setBrand(String brand) {
         this.brand = brand;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setModel(String model) {
+    public boolean setModel(String model) {
         this.model = model;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setType(String type) {
+    public boolean setType(String type) {
         this.type = type;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setColor(String color) {
+    public boolean setColor(String color) {
         this.color = color;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setYear(int year) {
+    public boolean setYear(int year) {
         this.year = year;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setQuantityAvailable(int quantityAvailable) {
+    public boolean setQuantityAvailable(int quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setBaseRate(double baseRate) {
+    public boolean setBaseRate(double baseRate) {
         this.baseRate = baseRate;
-        // ToDo: Write updated field to file
+        // ToDo (Done): Write updated field to file
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 }

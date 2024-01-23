@@ -197,23 +197,27 @@ public class UserService {
 //        }
         initializeUsersList();
         boolean operationSuccessful = true;
-        for (User user : users) {
-            for (int i = user.getRentedCars().size(); i >= 0; i--) {
-                if (user.getRentedCarsEndDates().get(i).isAfter(LocalDate.now())) {
-                    Car car = user.getRentedCars().remove(i);
-                    int carQuantity = user.getRentedCarsQuantities().remove(i);
-                    user.getRentedCarsEndDates().remove(i);
-                    user.getRentedCarsTotalPrices().remove(i);
+        try {
+            for (User user : users) {
+                for (int i = user.getRentedCars().size(); i >= 0; i--) {
+                    if (user.getRentedCarsEndDates().get(i).isAfter(LocalDate.now())) {
+                        Car car = user.getRentedCars().remove(i);
+                        int carQuantity = user.getRentedCarsQuantities().remove(i);
+                        user.getRentedCarsEndDates().remove(i);
+                        user.getRentedCarsTotalPrices().remove(i);
 
-                    car.setQuantityAvailable(car.getQuantityAvailable() + carQuantity);
+                        car.setQuantityAvailable(car.getQuantityAvailable() + carQuantity);
 
-                    operationSuccessful =
-                            userStream.writer(user, Directory.TableDirectory + classPath + user.getId()) &&
-                            carStream.writer(car, Directory.TableDirectory + carService.getClassPath() + car.getId());
+                        operationSuccessful =
+                                userStream.writer(user, Directory.TableDirectory + classPath + user.getId()) &&
+                                        carStream.writer(car, Directory.TableDirectory + carService.getClassPath() + car.getId());
+                    }
+                    if (!operationSuccessful) break;
                 }
                 if (!operationSuccessful) break;
             }
-            if (!operationSuccessful) break;
+        } catch (Throwable e) {
+            operationSuccessful = false;
         }
         return operationSuccessful;
     }
