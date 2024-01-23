@@ -20,7 +20,6 @@ public class UserService {
 
     // ====================== Fields ======================
     private final CarService carService = new CarService();
-    private UserService userService;
     private List<User> users = new ArrayList<>();
     private final String className = "User";
     private final String classPath = className + "/";
