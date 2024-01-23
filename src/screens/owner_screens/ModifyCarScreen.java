@@ -16,10 +16,19 @@ public class ModifyCarScreen {
     public void display() {
         System.out.println();
         System.out.println("... > Manage Cars > Modify Car");
-        int carIDChoice = (int) Console.readNumber("Enter the ID number of the car you want to modify", 1, carService.getCars().size());
-        // ToDo: Change the way the specific car is fetched, and the max of carIDChoice
-        // ToDo: Save carIDChoice to a file so that other screens can access and modify the car
-        Car car = carService.getCars().get(carIDChoice - 1);
+
+        while (true) {
+            int carIDChoice = (int) Console.readNumber("Enter the ID number of the car you want to modify", 1, carService.getLastCarId());
+            // ToDo (Done): Change the way the specific car is fetched, and the max of carIDChoice
+            Car car = carService.fetchCarById(carIDChoice);
+            if (car != null) {
+                // ToDo (Done): Save carIDChoice to a file so that other screens can access and modify the car
+                carService.saveToBeModifiedCarId(carIDChoice);
+                break;
+            }
+            System.out.println("There is no car with an ID number of " + carIDChoice + ". Please try again.");
+        }
+
         System.out.println("What would you like to change about the car?");
         System.out.println("1) Brand");
         System.out.println("2) Model");

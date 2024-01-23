@@ -2,130 +2,113 @@ package file_manager;
 
 import utility.Directory;
 import file_manager.errorMessage.ERROR;
-import file_manager.utils.DirectoryManager;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SchemaId
 {
-    private HashMap<String, Map<Integer, Integer>> tables = new HashMap<>();
-    SchemaId()
-    {
-        Stream<HashMap<String, Map<Integer, Integer>>> stream = new Stream<>();
+    private final HashMap<String, Map<String, Integer>> tables;
+    private final DirectoryManager directoryManager = new DirectoryManager();
+    private final Stream<HashMap<String, Map<String, Integer>>> stream = new Stream<>();
+
+    public SchemaId() {
         tables = stream.reader(Directory.SchemaIdsPath);
     }
-    SchemaId(HashMap<String, Map<Integer, Integer>> _tables)
-    {
-        this.tables = _tables;
+    public SchemaId(HashMap<String, Map<String, Integer>> tables) {
+        this.tables = tables;
         updateSchema();
     }
 
-    public void updateSchema()
-    {
-        Stream<HashMap<String, Map<Integer, Integer>>> stream = new Stream<>();
+    public void updateSchema() {
         stream.writer(tables, Directory.SchemaIdsPath);
     }
 
-    public void addTable(String schemaTitle)
-    {
-
-        if (tables.containsKey(schemaTitle))
-        {
-            ERROR e = new ERROR(5000, "schema name already existed.");
+    public void addTable(String schemaTitle) {
+        if (tables.containsKey(schemaTitle)) {
+            ERROR e = new ERROR(5000, "Schema name already existed.");
             e.print();
             return;
         }
 
-        Map<Integer, Integer> rollAndSize = new HashMap<>();
+        Map<String, Integer> idAndSize = new HashMap<>();
 
-        rollAndSize.put(0,0); // Key 0 : for roll numbers which get auto-incremented during data-insertion
-        rollAndSize.put(1,0); // Key 1 : for size of a given table which gets auto-incremented during data-insertion and decremented during data-deletion
+        idAndSize.put("id",0); // For id numbers which get auto-incremented during data-insertion
+        idAndSize.put("size",0); // For size of a given table which gets auto-incremented during data-insertion and decremented during data-deletion
 
-        tables.put(schemaTitle, rollAndSize);
+        tables.put(schemaTitle, idAndSize);
 
-        DirectoryManager.createDirectory(Directory.TableDirectory + schemaTitle);
+        directoryManager.createDirectory(Directory.TableDirectory + schemaTitle);
 
         updateSchema();
     }
 
-    public void removeTable(String schemaTitle)
-    {
+    public void removeTable(String schemaTitle) {
         tables.remove(schemaTitle);
-        DirectoryManager.deleteDirectory(Directory.TableDirectory + schemaTitle);
+        directoryManager.deleteDirectory(Directory.TableDirectory + schemaTitle);
 
         updateSchema();
     }
 
-    public void resetDatabase()
-    {
-        Map<Integer, Integer> zeros = new HashMap<>();
-        zeros.put(0,0);
-        zeros.put(1,0);
-        for (Map.Entry<String, Map<Integer, Integer>> table : tables.entrySet())
-        {
+    public void resetDatabase() {
+        Map<String, Integer> zeros = new HashMap<>();
+        zeros.put("id",0);
+        zeros.put("size",0);
+        for (var table : tables.entrySet()) {
             tables.put(table.getKey(), zeros);
-            DirectoryManager.cleanDirectory(Directory.TableDirectory + table.getKey());
+            directoryManager.cleanDirectory(Directory.TableDirectory + table.getKey());
         }
-            updateSchema();
+        updateSchema();
     }
 
-    private Map<Integer, Integer> schemaDetail(String schemaTitle)
-    {
+    private Map<String, Integer> schemaDetail(String schemaTitle) {
         if (tables.containsKey(schemaTitle))
-        {
             return tables.get(schemaTitle);
-        } else
-        {
+        else {
             ERROR e = new ERROR(4000, "table no found");
             e.print();
             return null;
         }
     }
 
-    public void incrementSize(String schemaTitle)
-    {
-        Map<Integer, Integer> i = schemaDetail(schemaTitle);
+    public void incrementSize(String schemaTitle) {
+        Map<String, Integer> i = schemaDetail(schemaTitle);
 
         if (i == null) return;
 
-        i.put(0, i.get(0) + 1);
-        i.put(1, i.get(1) + 1);
+        i.put("id", i.get("id") + 1);
+        i.put("size", i.get("size") + 1);
 
         tables.put(schemaTitle, i);
         updateSchema();
     }
 
-    public void decrementSize(String schemaTitle)
-    {
-        Map<Integer, Integer> i = schemaDetail(schemaTitle);
+    public void decrementSize(String schemaTitle) {
+        Map<String, Integer> i = schemaDetail(schemaTitle);
 
         if (i == null) return;
 
-        i.put(1, i.get(1) - 1);
+        i.put("size", i.get("size") - 1);
 
         tables.put(schemaTitle, i);
         updateSchema();
     }
 
-    public int getRoll(String schemaTitle)
-    {
-        return tables.get(schemaTitle).get(0);
+    public int getTableLatestId(String schemaTitle) {
+        return tables.get(schemaTitle).get("id");
     }
 
     public void display() {
-        System.out.printf(String.valueOf("=").repeat(40) + "\n");
-        System.out.printf("%-15s%-7s%-7s\n", "Table", "Exp", "Size");
+        System.out.println("=".repeat(40));
+        System.out.printf("%-15s%-7s%-7s\n", "Table", "ID", "Size");
 
-
-        for (Map.Entry<String, Map<Integer, Integer>> entry : tables.entrySet()) {
+        for (var entry : tables.entrySet()) {
             String tableName = entry.getKey();
-            Map<Integer, Integer> innerMap = entry.getValue();
+            Map<String, Integer> innerMap = entry.getValue();
 
-            System.out.printf("%-15s%-7s%-7s\n", tableName, innerMap.get(0), innerMap.get(1));
+            System.out.printf("%-15s%-7s%-7s\n", tableName, innerMap.get("id"), innerMap.get("size"));
 
         }
-        System.out.printf(String.valueOf("=").repeat(40) + "\n");
-
+        System.out.println("=".repeat(40));
     }
 }

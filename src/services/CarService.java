@@ -1,12 +1,18 @@
 package services;
 
+import file_manager.SchemaId;
+import file_manager.Stream;
 import models.Car;
+import utility.Directory;
 
+import java.io.*;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -18,11 +24,22 @@ public class CarService {
     private List<String> carBrands = new ArrayList<>();
     private List<String> carTypes = new ArrayList<>();
     private List<Integer> carYears = new ArrayList<>();
+    private final String className = "Car";
+    private final String classPath = className + "/";
+    private final SchemaId database = new SchemaId();
+    private final Stream<Car> stream = new Stream<>();
 
     // ====================== Initialize cars List ======================
-    private void initializeLists() {
-        // ToDo: Read from files into the cars List
-
+    private boolean initializeLists() {
+        // ToDo (Done): Read from files into the cars List
+        boolean operationSuccessful = true;
+        try {
+            Files.walk(Paths.get(Directory.TableDirectory + classPath), Integer.MAX_VALUE, FileVisitOption.FOLLOW_LINKS)
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> cars.add(stream.reader(path.toString())));
+        } catch (IOException e) {
+            operationSuccessful = false;
+        }
 
 
         for (Car car : cars) {
@@ -33,6 +50,9 @@ public class CarService {
         carBrands = sortAndRemoveDuplicate(carBrands);
         carTypes = sortAndRemoveDuplicate(carTypes);
         carYears = sortAndRemoveDuplicate(carYears);
+
+        // ToDo: Utilize this return value at the method call
+        return operationSuccessful;
     }
 
     // ====================== Displaying ======================
@@ -192,8 +212,9 @@ public class CarService {
                 displayCar(car);
     }
 
-    public void addCar(String brand, String model, String type, String color, int year, int quantityAvailable, double baseRate) {
+    public boolean addCar(String brand, String model, String type, String color, int year, int quantityAvailable, double baseRate) {
         Car car = new Car();
+        car.setId(database.getTableLatestId(className));
         car.setBrand(brand);
         car.setModel(model);
         car.setType(type);
@@ -201,11 +222,22 @@ public class CarService {
         car.setYear(year);
         car.setQuantityAvailable(quantityAvailable);
         car.setBaseRate(baseRate);
-        // ToDo: Auto-generate id for the car, and write the car into file
+        // ToDo (Done): Auto-generate id for the car, and write the car into file
+        database.incrementSize(className);
+        // ToDo: Utilize this return value at the method call
+        return stream.writer(car, Directory.TableDirectory + classPath + car.getId());
     }
 
-    public void deleteCar(Car car) {
-        // ToDo: Write the logic for deleting a car
+    public boolean deleteCar(Car car) {
+        // ToDo (Done): Write the logic for deleting a car
+        database.decrementSize(className);
+        // ToDo: Utilize this return value at the method call
+        return stream.deleter(Directory.TableDirectory + classPath + car.getId());
+    }
+
+    public Car fetchCarById(int id) {
+        // ToDo: Check to see if the returned Car is null or not at the method call
+        return stream.reader(Directory.TableDirectory + classPath + id);
     }
 
     // ====================== Getters ======================
@@ -227,6 +259,29 @@ public class CarService {
 
     public List<Integer> getCarYears() {
         return carYears;
+    }
+
+    public int getLastCarId() {
+        return database.getTableLatestId(className) - 1;
+    }
+
+    public boolean saveToBeModifiedCarId(int id) {
+        boolean operationSuccessful = true;
+        try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(Directory.DatabaseDirectory + "ToBeModifiedCarId"))) {
+            dataOutputStream.writeInt(id);
+        } catch (IOException e) {
+            operationSuccessful = false;
+        }
+        return operationSuccessful;
+    }
+
+    public int fetchToBeModifiedCarId() {
+        boolean operationSuccessful = true;
+        try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(Directory.DatabaseDirectory + "ToBeModifiedCarId"))) {
+            return dataInputStream.readInt();
+        } catch (IOException e) {
+            return -1;
+        }
     }
 
     // ====================== Private Utilities ======================
