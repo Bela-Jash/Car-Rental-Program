@@ -1,6 +1,17 @@
 package models;
 
+import file_manager.Stream;
+import utility.Directory;
+
+import java.io.Serial;
+
 public class Owner extends Admin {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private final Stream<Owner> stream = new Stream<>();
+    private final String className = "Owner";
+    private final String classPath = className + "/";
+
     private String companyName;
     /** The maximum number of days between today and the starting date of the rent */
     private int maxDaysBetweenTodayAndStartDate = 180;
@@ -37,16 +48,40 @@ public class Owner extends Admin {
     }
 
     // ====================== Setters ======================
-    public void setCompanyName(String companyName) {
+    public boolean setId(int id) {
+        this.id = id;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setName(String name) {
+        this.name = name;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setEmail(String email) {
+        this.email = email;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setPassword(String password) {
+        this.password = password;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+
+    public boolean setCompanyName(String companyName) {
         this.companyName = companyName;
         // ToDo: Write the updated field to file
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setMaxDaysBetweenTodayAndStartDate(int maxDaysBetweenTodayAndStartDate) {
+    public boolean setMaxDaysBetweenTodayAndStartDate(int maxDaysBetweenTodayAndStartDate) {
         this.maxDaysBetweenTodayAndStartDate = maxDaysBetweenTodayAndStartDate;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 
-    public void setMaxDaysBetweenStartAndEndDate(int maxDaysBetweenStartAndEndDate) {
+    public boolean setMaxDaysBetweenStartAndEndDate(int maxDaysBetweenStartAndEndDate) {
         this.maxDaysBetweenStartAndEndDate = maxDaysBetweenStartAndEndDate;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
     }
 }

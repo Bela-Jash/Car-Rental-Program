@@ -1,6 +1,17 @@
 package models;
 
-public class Admin extends Account {
+import file_manager.Stream;
+import utility.Directory;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Admin extends Account implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private final Stream<Admin> stream = new Stream<>();
+    private final String className = "Admin";
+    private final String classPath = className + "/";
     // ====================== Constructors ======================
     public Admin() {}
 
@@ -26,5 +37,27 @@ public class Admin extends Account {
     public void listAllCarBrands() {}
     public void listAllCarTypes() {}
     public void listAllRentedCars() {}
+
+    // ====================== Setters ======================
+    public boolean setId(int id) {
+        this.id = id;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setName(String name) {
+        this.name = name;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setEmail(String email) {
+        this.email = email;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
+    public boolean setPassword(String password) {
+        this.password = password;
+        return stream.writer(this, Directory.TableDirectory + classPath + id);
+    }
 
 }
